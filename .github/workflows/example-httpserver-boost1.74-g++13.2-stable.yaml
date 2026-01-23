@@ -6,16 +6,16 @@ on:
   push:
     branches: [ main ]
     paths:
-    - '.github/workflows/example-httpserver-boost1.74-g++13.2-stable.yaml'
-    - 'httpserver-boost1.74-g++13.2/**'
+    - .github/workflows/example-httpserver-boost1.74-g++13.2-stable.yaml
+    - httpserver-boost1.74-g++13.2/**
     - '!httpserver-boost1.74-g++13.2/README.md'
 
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches: [ main ]
     paths:
-    - '.github/workflows/example-httpserver-boost1.74-g++13.2-stable.yaml'
-    - 'httpserver-boost1.74-g++13.2/**'
+    - .github/workflows/example-httpserver-boost1.74-g++13.2-stable.yaml
+    - httpserver-boost1.74-g++13.2/**
     - '!httpserver-boost1.74-g++13.2/README.md'
 
   schedule:

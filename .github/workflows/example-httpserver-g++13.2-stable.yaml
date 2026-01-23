@@ -6,16 +6,16 @@ on:
   push:
     branches: [ main ]
     paths:
-    - '.github/workflows/example-httpserver-g++13.2-stable.yaml'
-    - 'httpserver-g++13.2/**'
+    - .github/workflows/example-httpserver-g++13.2-stable.yaml
+    - httpserver-g++13.2/**
     - '!httpserver-g++13.2/README.md'
 
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches: [ main ]
     paths:
-    - '.github/workflows/example-httpserver-g++13.2-stable.yaml'
-    - 'httpserver-g++13.2/**'
+    - .github/workflows/example-httpserver-g++13.2-stable.yaml
+    - httpserver-g++13.2/**
     - '!httpserver-g++13.2/README.md'
 
   schedule:
