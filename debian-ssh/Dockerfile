@@ -11,4 +11,6 @@ RUN echo "root:unikraft" | chpasswd
 
 RUN mkdir /run/sshd
 
+COPY ./sshd_config /etc/ssh/sshd_config
+
 COPY ./wrapper.sh /usr/bin/wrapper.sh
