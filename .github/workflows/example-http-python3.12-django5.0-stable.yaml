@@ -47,7 +47,7 @@ jobs:
         run: |
           set -xe;
 
-          cd http-python3.12-django5.0;
+          cd httpserver-python3.12-django5.0;
 
           kraft cloud deploy \
             --no-start \
