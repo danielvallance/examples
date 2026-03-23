@@ -1,0 +1,9 @@
+spec: v0.6
+
+name: httpserver-c
+
+runtime: base-compat:latest
+
+rootfs: ./Dockerfile
+
+cmd: ["/http_server"]
