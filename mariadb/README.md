@@ -24,7 +24,7 @@ export UKC_METRO=fra
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash
-kraft cloud deploy -p 3306:3306/tls -M 1Gi .
+kraft cloud deploy -M 1Gi -p 3306:3306/tls --env MARIADB_ROOT_PASSWORD="unikraft" .
 ```
 
 The output shows the instance address and other details:
@@ -94,6 +94,25 @@ When done, you can remove the instance:
 ```bash
 kraft cloud instance remove mariadb-w2g2z
 ```
+
+> **Tip:**
+> This example uses the [`idle` scale-to-zero policy](https://unikraft.com/docs/api/platform/v1/instances#scaletozero_policy) by default (see the `labels` section in the `Kraftfile`).
+
+## Using volumes
+
+You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persistence for your MariaDB instance.
+For that you would first create a volume:
+
+```console
+kraft cloud volume create --name mariadb-store --size 512
+```
+
+Then start the MariaDB instance and mount that volume:
+
+```bash
+kraft cloud deploy -M 1Gi -p 3306:3306/tls --env MARIADB_ROOT_PASSWORD="unikraft" --volume mariadb-store:/var/lib .
+```
+
 
 ## Customize your app
 
