@@ -17,7 +17,6 @@ This guide uses `fra` (Frankfurt, 🇩🇪):
 
 ```bash
 export UKC_TOKEN=token
-# Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
