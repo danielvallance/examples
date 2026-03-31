@@ -30,6 +30,7 @@ This guide uses `fra` (Frankfurt, 🇩🇪):
 
 ```bash
 export UKC_TOKEN=your-token-here
+# Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
