@@ -84,6 +84,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME           FQDN                                    STATE    STATUS        IMAGE         MEMORY   VCPUS  ARGS                             BOOT TIME
 mariadb-w2g2z  twilight-sun-82lt4ddk.fra.unikraft.app  running  1 minute ago  mariadb@s...  1.0 GiB  1      /usr/sbin/mariadbd --user=ro...  159065us

@@ -54,6 +54,7 @@ Use `curl` to query the Unikraft Cloud instance of Traefik.
 ```bash
 curl https://holy-cherry-rye39b1x.fra.unikraft.app:8080/dashboard
 ```
+
 ```text
 <!DOCTYPE html><html><head><title>Traefik</title><meta charset=utf-8><meta name=description content="Traefik UI"> ...
 ```
@@ -69,6 +70,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME           FQDN                                   STATE    STATUS         IMAGE                        MEMORY    VCPUS  ARGS                                           BOOT TIME
 traefik-wqe7e  holy-cherry-rye39b1x.fra.unikraft.app  running  8 minutes ago  traefik@sha256:f6dd913a8...  1024 MiB  1      /usr/bin/traefik -configFile /etc/traefik/...  53661us

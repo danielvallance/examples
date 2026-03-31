@@ -1,15 +1,15 @@
-# Rust (Actix Web)
+# HTTP Server with Rust (Actix Web)
 
 This example uses [`actix-web`](https://actix.rs), a popular Rust web framework.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-rust1.87-actix-web4/` directory:
+1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-rust1.87-actix-web4/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-rust1.87-actix-web4/
+cd examples/httpserver-rust1.87-actix-web4/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,20 +32,20 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: http-rust187-actix-web4-3pj27
+ ├────────── name: httpserver-rust187-actix-web4-3pj27
  ├────────── uuid:33e9b4ba-58d7-4b3a-b9dd-4c406c0e7b07
  ├───────── state: running
  ├─────────── url: https://autumn-silence-wupu2nus.fra.unikraft.app
- ├───────── image: http-rust187-actix-web4@sha256:11723705230f0f4545d2be7e4867dc67b396870769e91f05e2fa6d9da94f9b59
+ ├───────── image: httpserver-rust187-actix-web4@sha256:11723705230f0f4545d2be7e4867dc67b396870769e91f05e2fa6d9da94f9b59
  ├───── boot time: 11.67 ms
  ├──────── memory: 256 MiB
  ├─────── service: autumn-silence-wupu2nus
- ├── private fqdn: http-rust187-actix-web4-3pj27.internal
+ ├── private fqdn: httpserver-rust187-actix-web4-3pj27.internal
  ├──── private ip: 172.16.3.3
  └────────── args: /server
 ```
 
-In this case, the instance name is `http-rust187-actix-web4-3pj27` and the address is `https://autumn-silence-wupu2nus.fra.unikraft.app`.
+In this case, the instance name is `httpserver-rust187-actix-web4-3pj27` and the address is `https://autumn-silence-wupu2nus.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the Rust-based HTTP web server:
@@ -54,6 +54,7 @@ Use `curl` to query the Unikraft Cloud instance of the Rust-based HTTP web serve
 curl https://autumn-silence-wupu2nus.fra.unikraft.app
 curl https://autumn-silence-wupu2nus.fra.unikraft.app/hey
 ```
+
 ```text
 Hello world!
 Hey there!
@@ -64,22 +65,23 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME                           FQDN                                      STATE    STATUS          IMAGE                                                      MEMORY   VCPUS  ARGS     BOOT TIME
-http-rust187-actix-web4-3pj27  autumn-silence-wupu2nus.fra.unikraft.app  running  10 minutes ago  http-rust187-actix-web4@sha256:11723705230f0f4545d2be7...  256 MiB  1      /server  11672us
+NAME                                 FQDN                                      STATE    STATUS          IMAGE                                                      MEMORY   VCPUS  ARGS     BOOT TIME
+httpserver-rust187-actix-web4-3pj27  autumn-silence-wupu2nus.fra.unikraft.app  running  10 minutes ago  httpserver-rust187-actix-web4@sha256:117237052305d2be7...  256 MiB  1      /server  11672us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove http-rust187-actix-web4-3pj27
+kraft cloud instance remove httpserver-rust187-actix-web4-3pj27
 ```
 
 ## Customize your app
 
 To customize the app, update the files in the repository, listed below:
 
-* `src/main.rs`: the actual implementation
+* `src/main.rs`: the actual server implementation
 * `Cargo.toml`: the Cargo package manager configuration file
 * `Kraftfile`: the Unikraft Cloud specification
 * `Dockerfile`: the Docker-specified app filesystem

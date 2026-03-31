@@ -6,7 +6,7 @@ To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/get-docker/).
 
-2. Clone [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/chromium-cdp/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/chromium-cdp/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
@@ -45,7 +45,8 @@ The output shows the instance address and other details.
  └─────── args: /usr/bin/wrapper.sh /usr/bin/node /app/proxy.js
 ```
 
-In this case, the instance name is `chromium-cdp-d0l6y` and the address is `https://spring-dream-p5wxwwl0.fra.unikraft.app`. They're different for each run.
+In this case, the instance name is `chromium-cdp-d0l6y` and the address is `https://spring-dream-p5wxwwl0.fra.unikraft.app`.
+They're different for each run.
 
 To query the service you need to use a CDP client.
 You can use the Python-based implementation in the `test/` directory.

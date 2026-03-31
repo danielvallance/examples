@@ -57,6 +57,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME           FQDN                                  STATE    STATUS        IMAGE                               MEMORY   VCPUS  ARGS                               BOOT TIME
 haproxy-rfx6z  cool-paper-svzzr3qq.fra.unikraft.app  running  1 minute ago  haproxy@sha256:32296847231c1515...  256 MiB  1      /usr/bin/haproxy -f /etc/hapro...  26596us

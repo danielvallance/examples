@@ -72,6 +72,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME                  FQDN                                 STATE    STATUS        IMAGE                   MEMORY   VCPUS  ARGS                                      BOOT TIME
 spin-wagi-http-is72r  damp-bobo-wg43p36e.fra.unikraft.app  running  1 minute ago  spin-wagi-http@sha2...  4.0 GiB  1      /usr/bin/spin up --from /app/spin.tom...  300064us

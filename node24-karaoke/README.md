@@ -1,4 +1,4 @@
-# Node 24 AllKaraoke
+# Node AllKaraoke
 
 [Allkaraoke](https://github.com/Asvarox/allkaraoke) offers an ultrastar deluxe-like online platform for karaoke.
 

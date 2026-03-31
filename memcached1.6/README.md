@@ -7,11 +7,11 @@ To run it, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/memcached/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/memcached1.6/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/memcached/
+cd examples/memcached1.6/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -34,25 +34,25 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: memcached-arkv7
+ ├────────── name: memcached16-arkv7
  ├────────── uuid: da436eca-bc64-46d7-a04c-72832652b10e
  ├───────── state: running
  ├────────── fqdn: weathered-smoke-hehsdinv.fra.unikraft.app
- ├───────── image: memcached@sha256:f53cdbce4dc185e8acc8ecb93a0ab0ba99085ca0837a0ad2062aae9e31382e58
+ ├───────── image: memcached16@sha256:f53cdbce4dc185e8acc8ecb93a0ab0ba99085ca0837a0ad2062aae9e31382e58
  ├───── boot time: 19.27 ms
  ├──────── memory: 256 MiB
  ├─────── service: weathered-smoke-hehsdinv
- ├── private fqdn: memcached-arkv7.internal
+ ├── private fqdn: memcached16-arkv7.internal
  ├──── private ip: 172.16.6.5
  └────────── args: /usr/bin/memcached -u root
 ```
 
-In this case, the instance name is `memcached-arkv7` which is different for each run.
+In this case, the instance name is `memcached16-arkv7` which is different for each run.
 
 To test the deployment, first forward the port with the `kraft cloud tunnel` command:
 
 ```bash
-kraft cloud tunnel 11211:memcached-arkv7:11211
+kraft cloud tunnel 11211:memcached16-arkv7:11211
 ```
 
 Now, on a separate console, run the following commands to test that it works (you should see output when incrementing):
@@ -84,15 +84,16 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME             FQDN                                       STATE    STATUS          IMAGE                          MEMORY   VCPUS  ARGS                        BOOT TIME
-memcached-arkv7  weathered-smoke-hehsdinv.fra.unikraft.app  running  11 minutes ago  memcached@sha256:f53cdbce4...  256 MiB  1      /usr/bin/memcached -u root  19266us
+NAME               FQDN                                       STATE    STATUS          IMAGE                            MEMORY   VCPUS  ARGS                        BOOT TIME
+memcached16-arkv7  weathered-smoke-hehsdinv.fra.unikraft.app  running  11 minutes ago  memcached16@sha256:f53cdbce4...  256 MiB  1      /usr/bin/memcached -u root  19266us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove memcached-arkv7
+kraft cloud instance remove memcached16-arkv7
 ```
 
 ## Customize your app

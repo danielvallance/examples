@@ -65,7 +65,8 @@ This will create a volume for data persistence, and mount it at `/root` inside t
 In this case, the instance name is `vsftpd` and the address is `https://broken-orangutan-jypu2z53.fra.unikraft.app`.
 The name was preset, but the address is different for each run.
 
-**Note**: The password for the `root` user is set to `rootpass`. Do not forget to change it inside the `Dockerfile` and update the commands below.
+**Note**: The `root` password defaults to `rootpass`.
+Don't forget to change it inside the `Dockerfile` and update the commands below.
 
 You can access the FTP server using a client like `lftp`:
 
@@ -80,7 +81,7 @@ You can list information about the volume by running:
 kraft cloud volume list
 ```
 
-```text
+```ansi
 NAME              CREATED AT     SIZE     ATTACHED TO  MOUNTED BY  STATE    PERSISTENT
 vsftpd-workspace  9 minutes ago  1.0 GiB  vsftpd       vsftpd      mounted  true
 ```
@@ -102,7 +103,8 @@ When done, you can remove the instance:
 kraft cloud instance remove vsftpd
 ```
 
-The volume is not removed by default, so you can recreate the instance and still have access to your old data. Remove it using:
+The volume isn't removed by default, so you can recreate the instance and still have access to your old data.
+Remove it using:
 
 ```bash
 kraft cloud volume remove vsftpd-workspace

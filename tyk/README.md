@@ -48,6 +48,7 @@ To list information about the instances, use:
 ```bash
 kraft cloud compose ps
 ```
+
 ```ansi
 NAME       FQDN                                  STATE    STATUS        IMAGE                                             MEMORY   VCPUS  ARGS                                         BOOT TIME
 tyk-tyk    funky-pond-45usfkxx.fra.unikraft.app  running  since 45secs  tyk-tyk@sha256:06f8ba329fd9d9100skf1721fe...      128 MiB  1      /usr/bin/tyk start --conf /etc/tyk.conf      38.12 ms
@@ -64,6 +65,7 @@ Use `curl` to query the Tyk instance on Unikraft Cloud on the available address:
 ```bash
 curl https://funky-pond-45usfkxx.fra-test.unikraft.app/hello
 ```
+
 ```text
 {"status":"pass","version":"v5.3.0-dev","description":"Tyk GW","details":{"redis":{"status":"pass","componentType":"datastore","time":"2024-07-12T05:57:44Z"}}}
 ```

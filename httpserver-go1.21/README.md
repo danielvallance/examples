@@ -1,15 +1,15 @@
-# Golang
+# HTTP Server with Go
 
 This guide explains how to create and deploy a simple Go-based HTTP web server.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-go1.21/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-go1.21/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-go1.21/
+cd examples/httpserver-go1.21/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/metros#available) close to you.
@@ -32,27 +32,28 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: http-go121-9a2wv
+ ├────────── name: httpserver-go1.21-9a2wv
  ├────────── uuid: 8bb34040-9434-4a28-bd1e-c24ee532e2da
  ├───────── state: running
  ├─────────── url: https://red-dew-jtk6yxk1.fra.unikraft.app
- ├───────── image: http-go121@sha256:b16d61bb7898e764d8c11ab5a0b995e8c25a25b5ff89e161fc994ebf25a75680
+ ├───────── image: httpserver-go1.21@sha256:b16d61bb7898e764d8c11ab5a0b995e8c25a25b5ff89e161fc994ebf25a75680
  ├───── boot time: 11.05 ms
  ├──────── memory: 256 MiB
  ├─────── service: red-dew-jtk6yxk1
- ├── private fqdn: http-go121-9a2wv.internal
+ ├── private fqdn: httpserver-go1.21-9a2wv.internal
  ├──── private ip: 172.16.3.3
  └────────── args: /server
 ```
 
-In this case, the instance name is `http-go121-9a2wv` and the address is `https://red-dew-jtk6yxk1.fra.unikraft.app`.
+In this case, the instance name is `httpserver-go1.21-9a2wv` and the address is `https://red-dew-jtk6yxk1.fra.unikraft.app`.
 They're different for each run.
 
-Use `curl` to query the Unikraft Cloud instance of the Lua-based HTTP web server:
+Use `curl` to query the Unikraft Cloud instance of the Go-based HTTP web server:
 
 ```bash
 curl https://red-dew-jtk6yxk1.fra.unikraft.app
 ```
+
 ```text
 hello, world!
 ```
@@ -62,22 +63,23 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME              FQDN                               STATE    STATUS        IMAGE                                        MEMORY   VCPUS  ARGS     BOOT TIME
-http-go121-9a2wv  red-dew-jtk6yxk1.fra.unikraft.app  running  1 minute ago  alex/http-go121@sha256:b16d61bb7898e764d...  256 MiB  1      /server  9324us
+NAME                     FQDN                               STATE    STATUS        IMAGE                                          MEMORY   VCPUS  ARGS     BOOT TIME
+httpserver-go1.21-9a2wv  red-dew-jtk6yxk1.fra.unikraft.app  running  1 minute ago  httpserver-go1.21@sha256:b16d61bb7898e764d...  256 MiB  1      /server  9324us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance delete http-go121-9a2wv
+kraft cloud instance delete httpserver-go1.21-9a2wv
 ```
 
 ## Customize your app
 
 To customize the app, update the files in the repository, listed below:
 
-* `server.go`: the actual Go HTTP server
+* `server.go`: the actual Go HTTP server implementation
 * `Kraftfile`: the Unikraft Cloud specification
 * `Dockerfile`: the Docker-specified app filesystem
 

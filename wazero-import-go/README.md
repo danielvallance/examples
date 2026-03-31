@@ -54,6 +54,7 @@ Use `curl` to query the Unikraft Cloud instance of the Go/wazero server:
 ```bash
 curl https://cool-morning-camrrhsa.fra.unikraft.app
 ```
+
 ```text
 println >> 24
 log_i32 >> 24
@@ -64,6 +65,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME                    FQDN                                    STATE    STATUS        IMAGE                  MEMORY   VCPUS  ARGS                  BOOT TIME
 wazero-import-go-r4dx8  cool-morning-camrrhsa.fra.unikraft.app  running  1 minutes ag  wazero-import-go@s...  512 MiB  1      /age-calculator 2000  20040us

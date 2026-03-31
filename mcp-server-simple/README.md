@@ -1,4 +1,4 @@
-# Custom MCP Server
+# Simple MCP Server
 
 This example demonstrates how to build a minimal custom MCP (Model Context Protocol) server from scratch using [FastMCP 2.0](https://github.com/jlowin/fastmcp).
 
@@ -37,12 +37,12 @@ The output shows your instance details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────── name: mcp-simple-bbdcb
+ ├────── name: mcp-server-simple-bbdcb
  ├────── uuid: e87d3591-3497-4f30-bd76-1dc886059647
  ├───── metro: https://api.fra.unikraft.cloud/v1
  ├───── state: running
  ├──── domain: https://cool-paper-b6mht7jv.fra.unikraft.app
- ├───── image: mcp-simple@sha256:cbbfb441ee313a6c7c0de571e9002f0f6031312e203ffb6be3b8f4950df3bc20
+ ├───── image: mcp-server-simple@sha256:cbbfb441ee313a6c7c0de571e9002f0f6031312e203ffb6be3b8f4950df3bc20
  ├─ boot time: 145.96 ms
  ├──── memory: 512 MiB
  ├─── service: cool-paper-b6mht7jv
@@ -50,10 +50,11 @@ The output shows your instance details:
  └────── args: /usr/bin/python3 /src/server.py
 ```
 
-In this case, the instance name is `mcp-simple-bbdcb` and the service `cool-paper-b6mht7jv`.
+In this case, the instance name is `mcp-server-simple-bbdcb` and the service `cool-paper-b6mht7jv`.
 They're different for each run.
 
-For testing, you can use the example client included in this directory. First, [install `uv`](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2) if you haven't already, then run:
+For testing, you can use the example client included in this directory.
+First, [install `uv`](https://docs.astral.sh/uv/getting-started/installation) if you haven't already, then run:
 
 ```bash
 export MCP_SERVER_URL=https://cool-paper-b6mht7jv.fra.unikraft.app/mcp
@@ -85,14 +86,14 @@ kraft cloud instance list
 ```
 
 ```ansi
-NAME              FQDN                                  STATE    STATUS   IMAGE                                        MEMORY   VCPUS  ARGS                             BOOT TIME
-mcp-simple-bbdcb  cool-paper-b6mht7jv.fra.unikraft.app  standby  standby  mcp-simple@sha256:cbbfb441ee313a6c7c0de5...  512 MiB  1      /usr/bin/python3 /src/server.py  9.15 ms
+NAME                     FQDN                                  STATE    STATUS   IMAGE                                               MEMORY   VCPUS  ARGS                             BOOT TIME
+mcp-server-simple-bbdcb  cool-paper-b6mht7jv.fra.unikraft.app  standby  standby  mcp-server-simple@sha256:cbbfb441ee313a6c7c0de5...  512 MiB  1      /usr/bin/python3 /src/server.py  9.15 ms
 ```
 
 When done, you can delete the instance with:
 
 ```bash
-kraft cloud instance remove mcp-simple-bbdcb
+kraft cloud instance remove mcp-server-simple-bbdcb
 ```
 
 ## Available tools
@@ -105,14 +106,15 @@ This MCP Server provides the following tools:
 
 ## Building your own tools
 
-This example shows the basic structure of an MCP server using FastMCP. To add your own tools:
+This example shows the basic structure of an MCP server using FastMCP.
+To add your own tools:
 
 1. **Define the tool** using the `@mcp.tool()` decorator:
    * Add type hints for parameters
    * Include a docstring describing what the tool does
    * Parameters are automatically converted to JSON schema
 
-1. **Implement the tool** function:
+1. **Write the tool** function:
    * Process the parameters
    * Return a string result (or raise an exception for errors)
 

@@ -1,15 +1,15 @@
-# C++ Boost
+# HTTP Server with C++ Boost
 
 This guide explains how to create and deploy a C++-based HTTP web server using the [Boost](https://www.boost.org/) libraries.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-cpp-boost/` directory:
+2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-boost1.74-g++13.2/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-cpp-boost/
+cd examples/httpserver-boost1.74-g++13.2/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,20 +32,20 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────────── name: http-cpp-boost-rae7s
+ ├────────── name: httpserver-boost1.74-g++13.2-rae7s
  ├────────── uuid: 5a9886fa-f8a3-4860-afcf-d5eb13fdc38d
  ├───────── state: running
  ├─────────── url: https://red-snow-3bn7bzc8.fra.unikraft.app
- ├───────── image: http-cpp-boost@sha256:61cf86b89fed46351af53689e27189315e466576475f61c7240bf17644613489
+ ├───────── image: httpserver-boost1.74-g++13.2@sha256:61cf86b89fed46351af53689e27189315e466576475f61c7240bf17644613489
  ├───── boot time: 15.00 ms
  ├──────── memory: 256 MiB
  ├─────── service: red-snow-3bn7bzc8
- ├── private fqdn: http-cpp-boost-rae7s.internal
+ ├── private fqdn: httpserver-boost1.74-g++13.2-rae7s.internal
  ├──── private ip: 172.16.6.4
  └────────── args: /http_server
 ```
 
-In this case, the instance name is `http-cpp-boost-rae7s` and the address is `https://red-snow-3bn7bzc8.fra.unikraft.app`.
+In this case, the instance name is `httpserver-boost1.74-g++13.2-rae7s` and the address is `https://red-snow-3bn7bzc8.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the C++ Boost HTTP web server:
@@ -53,6 +53,7 @@ Use `curl` to query the Unikraft Cloud instance of the C++ Boost HTTP web server
 ```bash
 curl https://red-snow-3bn7bzc8.fra.unikraft.app
 ```
+
 ```text
 Hello, World!
 ```
@@ -62,22 +63,23 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME                  FQDN                                STATE    STATUS        IMAGE                                                        MEMORY   VCPUS  ARGS          BOOT TIME
-http-cpp-boost-rae7s  red-snow-3bn7bzc8.fra.unikraft.app  running  1 minute ago  http-cpp-boost@sha256:61cf86b89fed46351af53689e27189315e...  256 MiB  1      /http_server  15000us
+NAME                                FQDN                                STATE    STATUS        IMAGE                                          MEMORY   VCPUS  ARGS          BOOT TIME
+httpserver-boost1.74-g++13.2-rae7s  red-snow-3bn7bzc8.fra.unikraft.app  running  1 minute ago  httpserver-boost1.74-g++13.2@sha256:61cf86...  256 MiB  1      /http_server  15000us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove http-cpp-boost-rae7s
+kraft cloud instance remove httpserver-boost1.74-g++13.2-rae7s
 ```
 
 ## Customize your app
 
 To customize the app, update the files in the repository, listed below:
 
-* `http_server.cpp`: the C++ HTTP server
+* `http_server.cpp`: the C++ HTTP server implementation
 * `Kraftfile`: the Unikraft Cloud specification
 * `Dockerfile`: the Docker-specified app filesystem
 
