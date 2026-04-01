@@ -62,7 +62,7 @@ jobs:
             --scale-to-zero-stateful \
             --scale-to-zero-cooldown 4s \
             --name visual-studio-code-server-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-staging/base-compat:latest \
+            --runtime index.unikraft.io/official-testing/base-compat:latest \
             --subdomain visual-studio-code-server-${GITHUB_RUN_ID} \
             -p 443:8443 \
             -M 2Gi \

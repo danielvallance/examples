@@ -56,7 +56,7 @@ jobs:
             --no-start \
             --memory 512 \
             --name httpserver-python312-flask30-staging-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-testing/base-compat:latest \
+            --runtime index.unikraft.io/official-staging/base-compat:latest \
             --subdomain httpserver-python312-flask30-staging-${GITHUB_RUN_ID} \
             -p 443:8080 \
             .;
