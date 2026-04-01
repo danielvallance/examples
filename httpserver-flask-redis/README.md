@@ -1,4 +1,4 @@
-# HTTP Server with Flask and Redis
+# Redis HTTP Server
 
 This guide explains how to create and deploy a Flask app with a Redis database.
 To run this example, follow these steps:

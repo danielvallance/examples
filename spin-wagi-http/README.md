@@ -6,7 +6,8 @@ It shows how to run a Spin app serving routes from two programs written in diffe
 Both the Spin executor and the Wagi executor on Unikraft Cloud.
 To run it, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/spin-wagi-http/` directory:
 
@@ -15,10 +16,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/spin-wagi-http/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -26,8 +34,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 4Gi .
+```bash title="unikraft"
+unikraft build . --output <my-org>/spin-wagi-http:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 4G <my-org>/spin-wagi-http:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 4G .
 ```
 
 The output shows the instance address and other details:
@@ -69,7 +84,13 @@ Goodbye, Fermyon!
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -80,7 +101,13 @@ spin-wagi-http-is72r  damp-bobo-wg43p36e.fra.unikraft.app  running  1 minute ago
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete spin-wagi-http-is72r
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove spin-wagi-http-is72r
 ```
 
@@ -116,8 +143,14 @@ The following options are available for customizing the app:
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

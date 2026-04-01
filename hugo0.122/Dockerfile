@@ -1,6 +1,6 @@
 FROM golang:1.23.3-bookworm AS build
 
-ARG HUGO_VERSION=v0.138.0
+ARG HUGO_VERSION=v0.146.0
 
 WORKDIR /src
 

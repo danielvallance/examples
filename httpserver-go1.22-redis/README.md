@@ -1,4 +1,4 @@
-# HTTP Server with Go and Redis
+# Redis HTTP Server
 
 This guide explains how to create and deploy a Go app with a Redis database.
 To run this example, follow these steps:

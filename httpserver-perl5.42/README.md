@@ -1,9 +1,10 @@
-# HTTP Server with Perl
+# Perl HTTP Server
 
 This guide explains how to create and deploy a simple Perl-based HTTP web server.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-perl5.42/` directory:
 
@@ -12,10 +13,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-perl5.42/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -23,8 +31,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-perl5.42:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-perl5.42:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -60,7 +75,13 @@ Hello, World!
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -73,7 +94,15 @@ When you list your instances, you might notice they show as standby.
 This is normal behavior and means the instance is using Unikraft Cloud's scale-to-zero feature that saves resources when there is no traffic.
 To check your instance is working, open two terminals and use these commands to watch the status:
 
-```bash
+```bash title="unikraft"
+unikraft cloud instance list --watch
+# In another terminal, make requests
+curl https://fragrant-water-wau08gaw.fra.unikraft.app
+```
+
+or
+
+```bash title="kraft"
 watch -n 1 "kraft cloud instance list"
 # In another terminal, make requests
 curl https://fragrant-water-wau08gaw.fra.unikraft.app
@@ -83,7 +112,13 @@ It switches to "running" then back to "standby."
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-perl542-xue8j
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-perl542-xue8j
 ```
 
@@ -107,8 +142,14 @@ The following options are available for customizing the app:
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

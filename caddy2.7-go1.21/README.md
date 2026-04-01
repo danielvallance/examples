@@ -5,7 +5,8 @@ Caddy can be used with Unikraft / Unikraft Cloud to serve static web content.
 
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/caddy2.7-go1.21/` directory:
 
@@ -14,10 +15,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/caddy2.7-go1.21/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -25,8 +33,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:2015 -M 256 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/caddy27-go121:latest
+unikraft run --metro=fra -p 443:2015/http+tls -m 256M <my-org>/caddy27-go121:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:2015/http+tls -M 256M .
 ```
 
 The output shows the instance address and other details:
@@ -34,20 +49,20 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: caddy2.7-go1.21-vhf4m
+ ├────────── name: caddy27-go121-vhf4m
  ├────────── uuid: db624eff-4739-4500-873c-f7c58e4eefd7
  ├───────── state: running
  ├─────────── url: https://frosty-sky-vz8kwsmb.fra.unikraft.app
- ├───────── image: caddy2.7-go1.21@sha256:25df97e3c43147c683f31dd062d0fa75122358b596de5804ca246c4e8613dd56
+ ├───────── image: caddy27-go121@sha256:25df97e3c43147c683f31dd062d0fa75122358b596de5804ca246c4e8613dd56
  ├───── boot time: 20.18ms
  ├──────── memory: 256 MiB
  ├─────── service: frosty-sky-vz8kwsmb
- ├── private fqdn: caddy2.7-go1.21-vhf4m.internal
+ ├── private fqdn: caddy27-go121-vhf4m.internal
  ├──── private ip: 172.16.6.2
  └────────── args: /usr/bin/caddy run --config /etc/caddy/Caddyfile
 ```
 
-In this case, the instance name is `caddy2.7-go1.21-vhf4m` and the address is `https://frosty-sky-vz8kwsmb.fra.unikraft.app`.
+In this case, the instance name is `caddy27-go121-vhf4m` and the address is `https://frosty-sky-vz8kwsmb.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of Caddy.
@@ -62,19 +77,31 @@ Hello World!
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
 ```ansi
-NAME                   FQDN                                  STATE    STATUS        IMAGE                                MEMORY   VCPUS  ARGS                               BOOT TIME
-caddy2.7-go1.21-vhf4m  frosty-sky-vz8kwsmb.fra.unikraft.app  running  1 minute ago  caddy2.7-go1.21@sha256:25df97e3c...  256 MiB  1      /usr/bin/caddy run --config /e...  20180us
+NAME                 FQDN                                  STATE    STATUS        IMAGE                              MEMORY   VCPUS  ARGS                               BOOT TIME
+caddy27-go121-vhf4m  frosty-sky-vz8kwsmb.fra.unikraft.app  running  1 minute ago  caddy27-go121@sha256:25df97e3c...  256 MiB  1      /usr/bin/caddy run --config /e...  20180us
 ```
 
 When done, you can remove the instance:
 
-```bash
-kraft cloud instance remove caddy2.7-go1.21-vhf4m
+```bash title="unikraft"
+unikraft instances delete caddy27-go121-vhf4m
+```
+
+or
+
+```bash title="kraft"
+kraft cloud instance remove caddy27-go121-vhf4m
 ```
 
 ## Customize your app
@@ -111,8 +138,14 @@ You can set a new webroot (different than `rootfs`), or a different internal por
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

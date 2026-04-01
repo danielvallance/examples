@@ -3,7 +3,8 @@
 This guide explains how to create and deploy a Debian app with SSH enabled.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/debian-ssh` directory:
 
@@ -12,19 +13,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/debian-ssh/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -M 1Gi -e PUBKEY="...." .
+```bash title="unikraft"
+unikraft build . --output <my-org>/debian-ssh:latest
+unikraft run --metro=fra -p 2222:2222/tls -m 1G -e PUBKEY="...." <my-org>/debian-ssh:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 2222:2222/tls -M 1G -e PUBKEY="...." .
 ```
 
 The output shows the instance address and other details:
@@ -37,7 +52,7 @@ The output shows the instance address and other details:
  ├────── metro: https://api.fra.unikraft.cloud/v1
  ├────── state: starting
  ├───── domain: nameless-cherry-sw2e9ul2.fra.unikraft.app
- ├────── image: debian-ssh@sha256:2442b4d5e078e7bc9ccd887fac65623511551592315d341a219f34a2c6628949 
+ ├────── image: debian-ssh@sha256:2442b4d5e078e7bc9ccd887fac65623511551592315d341a219f34a2c6628949
  ├───── memory: 1024 MiB
  ├──── service: nameless-cherry-sw2e9ul2
  ├─ private ip: 10.0.0.109
@@ -64,7 +79,13 @@ This is normal if you have set up tunnels to connect with SSH on `localhost`, so
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -75,7 +96,13 @@ debian-ssh-2uwg5  nameless-cherry-sw2e9ul2.fra.unikraft.app  running  since 5min
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete debian-ssh-2uwg5
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove debian-ssh-2uwg5
 ```
 
@@ -83,8 +110,14 @@ kraft cloud instance remove debian-ssh-2uwg5
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

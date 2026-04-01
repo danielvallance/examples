@@ -1,10 +1,11 @@
-# HTTP Server with Node
+# Node HTTP Server
 
 [Node.js](https://nodejs.org) is a free, open source, cross-platform JavaScript runtime environment.
 
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-node25` directory:
 
@@ -13,19 +14,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-node25/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-node25:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-node25:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -60,7 +75,13 @@ Hello, World!
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -71,7 +92,13 @@ httpserver-node25-v8mp4  bright-star-k3m7pqnx.fra.unikraft.app  running  since 3
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-node25-v8mp4
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-node25-v8mp4
 ```
 
@@ -117,10 +144,17 @@ The following options are available for customizing the app:
 - [Unikraft Cloud's Documentation](https://unikraft.cloud/docs/)
 - [Building `Dockerfile` images with `Buildkit`](https://unikraft.org/guides/building-dockerfile-images-with-buildkit)
 
+
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).
