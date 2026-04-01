@@ -58,6 +58,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME         FQDN                                STATE    STATUS        IMAGE                                     MEMORY   VCPUS  ARGS                               BOOT TIME
 minio-w2my8  icy-bird-tregaga9.fra.unikraft.app  running  1 minute ago  minio@sha256:ba4657c607495326b0e29b51...  512 MiB  1      /usr/bin/minio server --addres...  73651us

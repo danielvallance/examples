@@ -7,11 +7,11 @@ To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/caddy/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/caddy2.7-go1.21/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/caddy/
+cd examples/caddy2.7-go1.21/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -34,20 +34,20 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: caddy-vhf4m
+ ├────────── name: caddy2.7-go1.21-vhf4m
  ├────────── uuid: db624eff-4739-4500-873c-f7c58e4eefd7
  ├───────── state: running
  ├─────────── url: https://frosty-sky-vz8kwsmb.fra.unikraft.app
- ├───────── image: caddy@sha256:25df97e3c43147c683f31dd062d0fa75122358b596de5804ca246c4e8613dd56
+ ├───────── image: caddy2.7-go1.21@sha256:25df97e3c43147c683f31dd062d0fa75122358b596de5804ca246c4e8613dd56
  ├───── boot time: 20.18ms
  ├──────── memory: 256 MiB
  ├─────── service: frosty-sky-vz8kwsmb
- ├── private fqdn: caddy-vhf4m.internal
+ ├── private fqdn: caddy2.7-go1.21-vhf4m.internal
  ├──── private ip: 172.16.6.2
  └────────── args: /usr/bin/caddy run --config /etc/caddy/Caddyfile
 ```
 
-In this case, the instance name is `caddy-vhf4m` and the address is `https://frosty-sky-vz8kwsmb.fra.unikraft.app`.
+In this case, the instance name is `caddy2.7-go1.21-vhf4m` and the address is `https://frosty-sky-vz8kwsmb.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of Caddy.
@@ -55,6 +55,7 @@ Use `curl` to query the Unikraft Cloud instance of Caddy.
 ```bash
 curl https://frosty-sky-vz8kwsmb.fra.unikraft.app
 ```
+
 ```text
 Hello World!
 ```
@@ -64,15 +65,16 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME         FQDN                                  STATE    STATUS        IMAGE                               MEMORY   VCPUS  ARGS                               BOOT TIME
-caddy-vhf4m  frosty-sky-vz8kwsmb.fra.unikraft.app  running  1 minute ago  caddy@sha25:25df97e3c43147c683f...  256 MiB  1      /usr/bin/caddy run --config /e...  20180us
+NAME                   FQDN                                  STATE    STATUS        IMAGE                                MEMORY   VCPUS  ARGS                               BOOT TIME
+caddy2.7-go1.21-vhf4m  frosty-sky-vz8kwsmb.fra.unikraft.app  running  1 minute ago  caddy2.7-go1.21@sha256:25df97e3c...  256 MiB  1      /usr/bin/caddy run --config /e...  20180us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove caddy-vhf4m
+kraft cloud instance remove caddy2.7-go1.21-vhf4m
 ```
 
 ## Customize your app

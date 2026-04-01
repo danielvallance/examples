@@ -57,6 +57,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME           FQDN                               STATE    STATUS          IMAGE                        MEMORY    VCPUS  ARGS                                      BOOT TIME
 grafana-sikrv  icy-sea-i6m5fwyk.fra.unikraft.app  running  11 minutes ago  grafana@sha256:484d6f98c...  2048 MiB  1      /usr/share/grafana/bin/grafana server...  502651us

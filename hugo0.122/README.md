@@ -6,11 +6,11 @@ To run it, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/hugo/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/hugo0.122/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/hugo/
+cd examples/hugo0.122/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -33,20 +33,20 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: hugo-zpabu
+ ├────────── name: hugo0122-zpabu
  ├────────── uuid: dfc6e06c-76cc-4aa1-a053-c4eded0d2456
  ├───────── state: running
  ├─────────── url: https://morning-rain-jikpfy3t.fra.unikraft.app
- ├───────── image: hugo@sha256:68d20fdb707076b1cd0f2848b17cc75670d8a92b740edb9417aeb8463fef7f19
+ ├───────── image: hugo0122@sha256:68d20fdb707076b1cd0f2848b17cc75670d8a92b740edb9417aeb8463fef7f19
  ├───── boot time: 77.17 ms
  ├──────── memory: 512 MiB
  ├─────── service: morning-rain-jikpfy3t
- ├── private fqdn: hugo-zpabu.internal
+ ├── private fqdn: hugo0122-zpabu.internal
  ├──── private ip: 172.16.6.4
  └────────── args: /usr/bin/hugo server --bind=0.0.0.0 --source /site
 ```
 
-In this case, the instance name is `hugo-zpabu` and the address is `https://morning-rain-jikpfy3t.fra.unikraft.app`.
+In this case, the instance name is `hugo0122-zpabu` and the address is `https://morning-rain-jikpfy3t.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of Hugo.
@@ -54,6 +54,7 @@ Use `curl` to query the Unikraft Cloud instance of Hugo.
 ```bash
 curl https://morning-rain-jikpfy3t.fra.unikraft.app
 ```
+
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
@@ -68,15 +69,16 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME        FQDN                                    STATE    STATUS        IMAGE                                                 MEMORY   VCPUS  ARGS                             BOOT TIME
-hugo-zpabu  morning-rain-jikpfy3t.fra.unikraft.app  running  1 minute ago  hugo@sha256:68d20fdb707076b1cd0f2848b17cc75670d8a...  512 MiB  1      /usr/bin/hugo server --bind=...  77166us
+NAME            FQDN                                    STATE    STATUS        IMAGE                                                     MEMORY   VCPUS  ARGS                             BOOT TIME
+hugo0122-zpabu  morning-rain-jikpfy3t.fra.unikraft.app  running  1 minute ago  hugo0122@sha256:68d20fdb707076b1cd0f2848b17cc75670d8a...  512 MiB  1      /usr/bin/hugo server --bind=...  77166us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove hugo-zpabu
+kraft cloud instance remove hugo0122-zpabu
 ```
 
 ## Customize your app

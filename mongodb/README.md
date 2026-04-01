@@ -90,6 +90,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME           FQDN                                  STATE    STATUS          IMAGE                             MEMORY   VCPUS  ARGS                              BOOT TIME
 mongodb-6tiuu  bold-brook-khkwv7of.fra.unikraft.app  running  20 minutes ago  mongodb@sha256:e6ff5153f106e2...  1.0 GiB  1      /usr/bin/mongod --bind_ip_all...  82410us

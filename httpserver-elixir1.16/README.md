@@ -1,15 +1,15 @@
-# Elixir
+# HTTP Server with Elixir
 
 This guide explains how to create and deploy a simple Elixir-based HTTP web server.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-elixir1.16/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-elixir1.16/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-elixir1.16/
+cd examples/httpserver-elixir1.16/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,19 +32,19 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────────── name: elixir-qo9k3
+ ├────────── name: httpserver-elixir116-qo9k3
  ├────────── uuid: e5fbf089-b000-4b2d-a827-44a1f5d28f24
  ├───────── state: running
  ├──────── domain: https://small-water-tl8lr8am.fra.unikraft.app
- ├───────── image: http-elixir116@sha256:67f5df003758a1180932e931727f8cb7006bbbf6fdd84058e27fe05e4829bba0
+ ├───────── image: httpserver-elixir116@sha256:67f5df003758a1180932e931727f8cb7006bbbf6fdd84058e27fe05e4829bba0
  ├──────── memory: 1024 MiB
  ├─────── service: small-water-tl8lr8am
- ├── private fqdn: elixir-qo9k3.internal
+ ├── private fqdn: httpserver-elixir116-qo9k3.internal
  ├──── private ip: 172.16.3.4
  └────────── args: /usr/bin/wrapper.sh /usr/local/bin/mix run --no-halt
 ```
 
-In this case, the instance name is `elixir-qo9k3` and the address is `https://small-water-tl8lr8am.fra.unikraft.app`.
+In this case, the instance name is `httpserver-elixir116-qo9k3` and the address is `https://small-water-tl8lr8am.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the Elixir-based HTTP web server:
@@ -64,21 +64,21 @@ kraft cloud instance list
 ```
 
 ```ansi
-NAME          FQDN                                   STATE    STATUS       IMAGE                             MEMORY   VCPUS  ARGS                                         BOOT TIME
-elixir-qo9k3  small-water-tl8lr8am.fra.unikraft.app  running  since 9mins  http-elixir116@sha256:67f5df0...  1.0 GiB  1      /usr/bin/wrapper.sh /usr/local/bin/mix r...  437.43 ms
+NAME                          FQDN                                   STATE    STATUS       IMAGE                             MEMORY   VCPUS  ARGS                                         BOOT TIME
+httpserver-elixir116-qo9k3    small-water-tl8lr8am.fra.unikraft.app  running  since 9mins  httpserver-elixir116@sha256:6...  1.0 GiB  1      /usr/bin/wrapper.sh /usr/local/bin/mix r...  437.43 ms
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove elixir-qo9k3
+kraft cloud instance remove httpserver-elixir116-qo9k3
 ```
 
 ## Customize your app
 
 To customize the app, update the files in the repository, listed below:
 
-* `lib/`, `mix.esx`: the actual Elixir HTTP server
+* `lib/`, `mix.esx`: the actual Elixir HTTP server implementation
 * `Kraftfile`: the Unikraft Cloud specification
 * `Dockerfile`: the Docker-specified app filesystem
 

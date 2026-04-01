@@ -54,6 +54,7 @@ Use `curl` to query the Unikraft Cloud instance of Drangonfly.
 ```bash
 curl https://dry-moon-x6bgl6c0.fra.unikraft.app
 ```
+
 ```html
 <!DOCTYPE html>
 <html><head>
@@ -86,6 +87,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME               FQDN                                STATE    STATUS        IMAGE                         MEMORY   VCPUS  ARGS                              BOOT TIME
 dragonflydb-10zgk  dry-moon-x6bgl6c0.fra.unikraft.app  running  1 minute ago  dragonflydb@sha256:21e6d3...  512 MiB  1      /usr/bin/dragonfly --maxmemor...  28740us

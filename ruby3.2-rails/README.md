@@ -53,6 +53,7 @@ Use `curl` to query the Unikraft Cloud instance of the Python-based HTTP web ser
 ```bash
 curl https://aged-waterfall-qraz0s7d.fra.unikraft.app/hello
 ```
+
 ```text
 [...]
   <body>
@@ -68,6 +69,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME                FQDN                                      STATE    STATUS         IMAGE                                   MEMORY   VCPUS  ARGS                                            BOOT TIME
 ruby32-rails-apa93  aged-waterfall-qraz0s7d.fra.unikraft.app  running  2 minutes ago  ruby32-rails@sha256:fdd46011408fdee...  1.0 GiB  1      /usr/bin/ruby /app/bin/rails server -b 0.0.0.0  577.34 ms
@@ -92,6 +94,7 @@ The `app/` and `config/` directories contain files that are to overwrite generat
 ```bash
 tree app/ config/
 ```
+
 ```text
 app/
 |-- controllers/

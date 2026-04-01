@@ -1,15 +1,15 @@
-# Python
+# HTTP Server with Python
 
 This guide explains how to create and deploy a simple Python-based HTTP web server.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-python3.12/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-python3.12/
+cd examples/httpserver-python3.12/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,20 +32,20 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: http-python312-ma2i9
+ ├────────── name: httpserver-python312-ma2i9
  ├────────── uuid: e7389eee-9808-4152-b2ec-1f3c0541fd05
  ├───────── state: running
  ├─────────── url: https://young-night-5fpf0jj8.fra.unikraft.app
- ├───────── image: http-python312@sha256:278cb8b14f9faf9c2702dddd8bfb6124912d82c11b4a2c6590b6e32fc4049472
+ ├───────── image: httpserver-python312@sha256:278cb8b14f9faf9c2702dddd8bfb6124912d82c11b4a2c6590b6e32fc4049472
  ├───── boot time: 15.09 ms
  ├──────── memory: 512 MiB
  ├─────── service: young-night-5fpf0jj8
- ├── private fqdn: http-python312-ma2i9.internal
+ ├── private fqdn: httpserver-python312-ma2i9.internal
  ├──── private ip: 172.16.3.3
  └────────── args: /usr/bin/python /src/server.py
 ```
 
-In this case, the instance name is `http-python312-ma2i9` and the address is `https://young-night-5fpf0jj8.fra.unikraft.app`.
+In this case, the instance name is `httpserver-python312-ma2i9` and the address is `https://young-night-5fpf0jj8.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the Python-based HTTP web server:
@@ -53,6 +53,7 @@ Use `curl` to query the Unikraft Cloud instance of the Python-based HTTP web ser
 ```bash
 curl https://young-night-5fpf0jj8.fra.unikraft.app
 ```
+
 ```text
 Hello, World!
 ```
@@ -62,22 +63,23 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME                  FQDN                                   STATE    STATUS        IMAGE                                        MEMORY   VCPUS  ARGS                            BOOT TIME
-http-python312-ma2i9  young-night-5fpf0jj8.fra.unikraft.app  running  1 minute ago  http-python312@sha256:278cb8b14f9faf9c27...  512 MiB  1      /usr/bin/python /src/server.py  15094us
+NAME                        FQDN                                   STATE    STATUS        IMAGE                                        MEMORY   VCPUS  ARGS                            BOOT TIME
+httpserver-python312-ma2i9  young-night-5fpf0jj8.fra.unikraft.app  running  1 minute ago  httpserver-python312@sha256:278cb8b14f27...  512 MiB  1      /usr/bin/python /src/server.py  15094us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove http-python312-ma2i9
+kraft cloud instance remove httpserver-python312-ma2i9
 ```
 
 ## Customize your app
 
 To customize the app, update the files in the repository, listed below:
 
-* `server.py`: the actual Python HTTP server
+* `server.py`: the actual Python HTTP server implementation
 * `Kraftfile`: the Unikraft Cloud specification
 * `Dockerfile`: the Docker-specified app filesystem
 
@@ -112,7 +114,7 @@ The following options are available for customizing the app:
 It's used to install dependencies for Python apps.
 `pip` uses the `requirements.txt` file to list required dependencies (with versions).
 
-The [`http-python3.12-flask3.0`](https://github.com/unikraft-cloud/examples/tree/main/http-python3.12-flask3.0) guide details the use of `pip` to deploy an app using the [`Flask`](https://flask.palletsprojects.com/en/3.0.x/) framework on Unikraft Cloud.
+The [`httpserver-python3.12-flask3.0`](https://github.com/unikraft-cloud/examples/tree/main/httpserver-python3.12-flask3.0) guide details the use of `pip` to deploy an app using the [`Flask`](https://flask.palletsprojects.com/en/3.0.x/) framework on Unikraft Cloud.
 
 Run the command below to deploy the app on Unikraft Cloud:
 
@@ -120,7 +122,7 @@ Run the command below to deploy the app on Unikraft Cloud:
 kraft cloud deploy -p 443:8080 -M 512 .
 ```
 
-Differences from the `http-python3.12` app are also the steps required to create an `pip`-based app:
+Differences from the `httpserver-python3.12` app are also the steps required to create an `pip`-based app:
 
 1. Add the `requirements.txt` file used by `pip`.
 
@@ -139,7 +141,7 @@ The following lists the files:
 
 The `requirements.txt` file lists the `flask` dependency.
 
-The `Kraftfile` is the same one used for `http-python3.12`.
+The `Kraftfile` is the same one used for `httpserver-python3.12`.
 
 For `Dockerfile` newly added lines have the following roles:
 
@@ -157,7 +159,7 @@ For `Dockerfile` newly added lines have the following roles:
 * `COPY --from=base ...`: Copy generated Python files in the new `base` image in the `scratch`-based image.
 
 Similar actions apply to other `pip3`-based apps.
-See also the [`http-python3.12-django5.0`](https://github.com/unikraft-cloud/examples/tree/main/http-python3.12-django5.0) example.
+See also the [`httpserver-python3.12-django5.0`](https://github.com/unikraft-cloud/examples/tree/main/httpserver-python3.12-django5.0) example.
 
 ## Learn more
 

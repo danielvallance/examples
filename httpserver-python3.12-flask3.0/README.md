@@ -1,15 +1,15 @@
-# Flask
+# HTTP Server with Flask
 
 This guide explains how to create and deploy a [Flask](https://flask.palletsprojects.com/en/3.0.x/) web server.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-python3.12-flask3.0/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12-flask3.0/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-python3.12-flask3.0/
+cd examples/httpserver-python3.12-flask3.0/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,27 +32,28 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├────────── name: http-python312-flask30-bxwxm
+ ├────────── name: httpserver-python312-flask30-bxwxm
  ├────────── uuid: 3ff1ebad-2639-4214-bab4-ed35c4c32fa4
  ├───────── state: running
  ├─────────── url: https://damp-sunset-azd6dtyt.fra.unikraft.app
- ├───────── image: http-python312-flask30@sha256:d6c8e4c5a4f44e1d642d8eaeaa1d820b2841194dd6c5d4a872ae0a895c767da9
+ ├───────── image: httpserver-python312-flask30@sha256:d6c8e4c5a4f44e1d642d8eaeaa1d820b2841194dd6c5d4a872ae0a895c767da9
  ├───── boot time: 222.27 ms
  ├──────── memory: 512 MiB
  ├─────── service: damp-sunset-azd6dtyt
- ├── private fqdn: http-python312-flask30-bxwxm.internal
+ ├── private fqdn: httpserver-python312-flask30-bxwxm.internal
  ├──── private ip: 172.16.6.5
  └────────── args: /usr/bin/python3 /app/server.py
 ```
 
-In this case, the instance name is `http-python312-flask30-bxwxm` and the address is `https://damp-sunset-azd6dtyt.fra.unikraft.app`.
+In this case, the instance name is `httpserver-python312-flask30-bxwxm` and the address is `https://damp-sunset-azd6dtyt.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the Python-based HTTP web server:
 
 ```bash
-curl https://young-night-5fpf0jj8.fra.unikraft.app
+curl https://damp-sunset-azd6dtyt.fra.unikraft.app
 ```
+
 ```text
 Hello, World!
 ```
@@ -62,15 +63,16 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME                          FQDN                                   STATE    STATUS        IMAGE                                   MEMORY   VCPUS  ARGS                             BOOT TIME
-http-python312-flask30-bxwxm  damp-sunset-azd6dtyt.fra.unikraft.app  running  1 minute ago  http-python312-flask30@sha256:d6c8e...  512 MiB  1      /usr/bin/python3 /app/server.py  222273us
+NAME                                FQDN                                   STATE    STATUS        IMAGE                                        MEMORY   VCPUS  ARGS                             BOOT TIME
+httpserver-python312-flask30-bxwxm  damp-sunset-azd6dtyt.fra.unikraft.app  running  1 minute ago  httpserver-python312-flask30@sha256:d6c8...  512 MiB  1      /usr/bin/python3 /app/server.py  222273us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove http-python312-flask30-bxwxm
+kraft cloud instance remove httpserver-python312-flask30-bxwxm
 ```
 
 ## Customize your app
@@ -131,7 +133,7 @@ The following lists the files:
 
 The `requirements.txt` file lists the `flask` dependency.
 
-The `Kraftfile` is the same one used for `http-python3.12`.
+The `Kraftfile` is the same one used for `httpserver-python3.12`.
 
 For `Dockerfile` newly added lines have the following roles:
 

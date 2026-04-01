@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ mariaciobanoiu8/dragonflydb ]
+    branches: [ main ]
     paths:
     - '.github/workflows/example-dragonflydb-stable.yaml'
     - 'dragonflydb/**'
@@ -20,6 +20,9 @@ on:
 
   schedule:
   - cron: '0 15 * * 1-5'
+
+permissions:
+  contents: read
 
 # Automatically cancel in-progress actions on the same branch
 concurrency:
@@ -52,7 +55,7 @@ jobs:
           kraft cloud deploy \
             --no-start \
             --name dragonflydb-${GITHUB_RUN_ID} \
-            --runtime index.unikraft.io/official-staging/base-compat:latest \
+            --runtime index.unikraft.io/official-testing/base-compat:latest \
             --subdomain dragonflydb-${GITHUB_RUN_ID} \
             -p 443:6379 \
             -M 512 \

@@ -1,15 +1,15 @@
-# Django
+# HTTP Server with Django
 
 This guide explains how to create and deploy a Python Django web app.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-python3.12-django5.0/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12-django5.0/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-python3.12-django5.0/
+cd examples/httpserver-python3.12-django5.0/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,20 +32,20 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────────── name: http-python312-django50-vt56c
+ ├────────── name: httpserver-python312-django50-vt56c
  ├────────── uuid: d8469447-fdf6-4caf-9fea-494218ca6f72
  ├───────── state: running
  ├─────────── url: https://dawn-sound-n5wrkxi2.fra.unikraft.app
- ├───────── image: http-python312-django50@sha256:221666d414299aff54dbf10020b3d540270ee0c5907c1c6a728ca254ce8b0e50
+ ├───────── image: httpserver-python312-django50@sha256:221666d414299aff54dbf10020b3d540270ee0c5907c1c6a728ca254ce8b0e50
  ├───── boot time: 80.32 ms
  ├──────── memory: 1024 MiB
  ├─────── service: dawn-sound-n5wrkxi2
- ├── private fqdn: http-python312-django50-vt56c.internal
+ ├── private fqdn: httpserver-python312-django50-vt56c.internal
  ├──── private ip: 172.16.6.5
  └────────── args: /usr/bin/python3 /app/main.py
 ```
 
-In this case, the instance name is `http-python312-django50-vt56c` and the address is `https://dawn-sound-n5wrkxi2.fra.unikraft.app`.
+In this case, the instance name is `httpserver-python312-django50-vt56c` and the address is `https://dawn-sound-n5wrkxi2.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the Django web app server:
@@ -53,6 +53,7 @@ Use `curl` to query the Unikraft Cloud instance of the Django web app server:
 ```bash
 curl https://dawn-sound-n5wrkxi2.fra.unikraft.app
 ```
+
 ```html
 
 <!doctype html>
@@ -84,15 +85,16 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
-NAME                           FQDN                                  STATE    STATUS        IMAGE                                        MEMORY    VCPUS  ARGS                           BOOT TIME
-http-python312-django50-vt56c  dawn-sound-n5wrkxi2.fra.unikraft.app  running  1 minute ago  http-python312-django50@sha256:221666d41...  1024 MiB  1      /usr/bin/python3 /app/main.py  80321us
+NAME                                 FQDN                                  STATE    STATUS        IMAGE                                        MEMORY    VCPUS  ARGS                           BOOT TIME
+httpserver-python312-django50-vt56c  dawn-sound-n5wrkxi2.fra.unikraft.app  running  1 minute ago  httpserver-python312-django50@sha256:221...  1024 MiB  1      /usr/bin/python3 /app/main.py  80321us
 ```
 
 When done, you can remove the instance:
 
 ```bash
-kraft cloud instance remove http-python312-django50-vt56c
+kraft cloud instance remove httpserver-python312-django50-vt56c
 ```
 
 ## Customize your app
@@ -132,7 +134,7 @@ The following options are available for customizing the app:
 It's used to install dependencies for Python apps.
 `pip` uses the `requirements.txt` file to list required dependencies (with versions).
 
-The [`http-python3.12-flask3.0`](https://github.com/unikraft-cloud/examples/tree/main/http-python3.12-flask3.0) guide details the use of `pip` to deploy an app using the [`Flask`](https://flask.palletsprojects.com/en/3.0.x/) framework on Unikraft Cloud.
+The [`httpserver-python3.12-flask3.0`](https://github.com/unikraft-cloud/examples/tree/main/httpserver-python3.12-flask3.0) guide details the use of `pip` to deploy an app using the [`Flask`](https://flask.palletsprojects.com/en/3.0.x/) framework on Unikraft Cloud.
 
 Run the command below to deploy the app on Unikraft Cloud:
 

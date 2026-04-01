@@ -1,15 +1,15 @@
-# Go with Redis
+# HTTP Server with Go and Redis
 
 This guide explains how to create and deploy a Go app with a Redis database.
 To run this example, follow these steps:
 
 1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/http-go1.22-redis` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-go1.22-redis` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/http-go1.22-redis/
+cd examples/httpserver-go1.22-redis/
 ```
 
 Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.

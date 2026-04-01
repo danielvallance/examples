@@ -1,4 +1,4 @@
-# NGINX
+# Nginx
 
 This example uses [`Nginx`](https://nginx.org), one of the most popular web servers.
 Nginx can be used with Unikraft / Unikraft Cloud to serve static web content.
@@ -55,6 +55,7 @@ Use `curl` to query the Unikraft Cloud instance of Nginx.
 ```bash
 curl https://nameless-fog-0tvh1uov.fra.unikraft.app
 ```
+
 ```text
 <!DOCTYPE html>
 <html>
@@ -68,6 +69,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME         FQDN                                    STATE    STATUS         IMAGE                               MEMORY   VCPUS  ARGS                                     BOOT TIME
 nginx-67zbu  nameless-fog-0tvh1uov.fra.unikraft.app  running  5 minutes ago  nginx@sha256:f51ecc121c9ca34abb...  256 MiB  1      /usr/bin/nginx -c /etc/nginx/nginx.conf  11129us

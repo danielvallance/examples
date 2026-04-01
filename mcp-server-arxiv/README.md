@@ -45,22 +45,23 @@ The output shows your instance details:
 ```ansi
 [●] Deployed successfully!
  │
- ├─────── name: mcp-arxiv-l7l24
+ ├─────── name: mcp-server-arxiv-l7l24
  ├─────── uuid: 1a721bb8-4472-4149-9870-789b1df5f80a
  ├────── metro: https://api.fra.unikraft.cloud/v1
  ├────── state: starting
  ├───── domain: https://billowing-breeze-nuusy7l2.fra.unikraft.app
- ├────── image: mcp-arxiv@sha256:ea1e677ccc03628a3e7d57a4cd41118e3d2a631bcb2c34203bb9b175e7977f00 
+ ├────── image: mcp-server-arxiv@sha256:ea1e677ccc03628a3e7d57a4cd41118e3d2a631bcb2c34203bb9b175e7977f00 
  ├───── memory: 2048 MiB
  ├──── service: billowing-breeze-nuusy7l2
  ├─ private ip: 10.0.1.149
  └─────── args: /usr/local/bin/python /src/server.py
 ```
 
-In this case, the instance name is `mcp-arxiv-l7l24` and the service `billowing-breeze-nuusy7l2`.
+In this case, the instance name is `mcp-server-arxiv-l7l24` and the service `billowing-breeze-nuusy7l2`.
 They're different for each run.
 
-For testing, you can use the example client included in this directory. First, [install `uv`](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2) if you haven't already, then run:
+For testing, you can use the example client included in this directory.
+First, [install `uv`](https://docs.astral.sh/uv/getting-started/installation/) if you haven't already, then run:
 
 ```bash
 export MCP_SERVER_URL=https://billowing-breeze-nuusy7l2.fra.unikraft.app/mcp
@@ -83,14 +84,14 @@ kraft cloud instance list
 ```
 
 ```ansi
-NAME             FQDN                                        STATE    STATUS   IMAGE                                                              MEMORY   VCPUS  ARGS                             BOOT TIME
-mcp-arxiv-l7l24  billowing-breeze-nuusy7l2.fra.unikraft.app  standby  standby  mcp-arxiv@sha256:ea1e677ccc03628a3e7d57a4cd41118e3d2a631bcb2c3...  2.0 GiB  1      /usr/bin/python3 /src/server.py  213.07 ms
+NAME                    FQDN                                        STATE    STATUS   IMAGE                                                              MEMORY   VCPUS  ARGS                             BOOT TIME
+mcp-server-arxiv-l7l24  billowing-breeze-nuusy7l2.fra.unikraft.app  standby  standby  mcp-server-arxiv@sha256:ea1e677ccc03628a3e7d57a4cd41118e3d2a63...  2.0 GiB  1      /usr/bin/python3 /src/server.py  213.07 ms
 ```
 
 When done, you can delete the instance with:
 
 ```bash
-kraft cloud instance remove mcp-arxiv-l7l24
+kraft cloud instance remove mcp-server-arxiv-l7l24
 ```
 
 ## Using volumes
@@ -99,13 +100,13 @@ You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persi
 For that you would first create a volume:
 
 ```console
-kraft cloud volume create --name mcp-arxiv-data --size 500
+kraft cloud volume create --name mcp-server-arxiv-data --size 500
 ```
 
 Then start the MCP server instance and mount that volume (while specifying the storage path):
 
 ```console
-kraft cloud deploy -v mcp-arxiv-data:/volume -p 443:8080 -M 2Gi . -- --storage-path /volume
+kraft cloud deploy -v mcp-server-arxiv-data:/volume -p 443:8080 -M 2Gi . -- --storage-path /volume
 ```
 
 ## Available tools

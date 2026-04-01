@@ -55,6 +55,7 @@ You will get a health status of the service:
 ```bash
 curl -s https://divine-wind-1ycjvhqs.fra.unikraft.app/health | jq
 ```
+
 ```json
 {
   "uptime": 414,
@@ -81,6 +82,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME             FQDN                                   STATE    STATUS          IMAGE                                         MEMORY   VCPUS  ARGS                        BOOT TIME
 imaginary-mwb4y  divine-wind-1ycjvhqs.fra.unikraft.app  running  54 seconds ago  imaginary@sha256:673834bc531038bb621266f7...  256 MiB  1      /usr/bin/imaginary -p 8080  32262us

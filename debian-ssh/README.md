@@ -1,4 +1,4 @@
-# Debian with SSH
+# Debian SSH server
 
 This guide explains how to create and deploy a Debian app with SSH enabled.
 To run this example, follow these steps:
@@ -59,7 +59,8 @@ Then connect to the instance via SSH using:
 ssh -l root localhost -p 2222
 ```
 
-You might see warnings like `REMOTE HOST IDENTIFICATION HAS CHANGED`. This is normal if you have set up tunnels to connect with SSH on `localhost`, so do not worry.
+You might see warnings like `REMOTE HOST IDENTIFICATION HAS CHANGED`.
+This is normal if you have set up tunnels to connect with SSH on `localhost`, so don't worry.
 
 You can list information about the instance by running:
 

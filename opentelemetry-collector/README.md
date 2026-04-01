@@ -58,6 +58,7 @@ You can list information about the instance by running:
 ```bash
 kraft cloud instance list
 ```
+
 ```ansi
 NAME                           FQDN  STATE    STATUS        IMAGE             MEMORY    VCPUS  ARGS                                 BOOT TIME
 opentelemetry-collector-bvtnh        running  since 11mins  opentelemetry...  1536 MiB  1      /usr/bin/otelcontribcol --config...  177.62 ms
