@@ -1,10 +1,11 @@
-# HTTP Server with Puppeteer
+# Puppeteer HTTP Server
 
 This guide shows you how to use [Puppeteer](https://pptr.dev/), a Node.js library which provides a high-level API to control browsers, including the option to run them headless (no UI).
 
 To run it, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-node-express-puppeteer/` directory:
 
@@ -13,14 +14,24 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-node-express-puppeteer/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
+
+The `UKC_TOKEN` and `UKC_METRO` environment variables are only supported by the legacy CLI.
+
 
 > **Note:**
 > A Puppeteer instance on Unikraft Cloud requires 4GB to run.
@@ -28,8 +39,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 4Gi .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-node-express-puppeteer:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 4G <my-org>/httpserver-node-express-puppeteer:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 4G .
 ```
 
 The output shows the instance address and other details:
@@ -71,7 +89,13 @@ httpserver-node-express-puppeteer-7afg3  nameless-fog-0tvh1uov.fra.unikraft.app 
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-node-express-puppeteer-7afg3
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-node-express-puppeteer-7afg3
 ```
 

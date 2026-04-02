@@ -48,7 +48,7 @@ source ukc.config
 kraft pkg --plat kraftcloud --arch x86_64 --name index.unikraft.io/"$UKC_USER"/httpserver-c:latest .
 kraft pkg push index.unikraft.io/"$UKC_USER"/httpserver-c:latest
 kraft cloud image list
-kraft cloud instance create -M 256Mi -p 443:8080 --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
+kraft cloud instance create -M 256M -p 443:8080/tls+http --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
 kraft cloud instance start httpserver-c
 kraft cloud instance list
 kraft cloud instance get httpserver-c
@@ -58,7 +58,7 @@ kraft cloud instance logs httpserver-c
 kraft cloud instance stop httpserver-c
 kraft cloud instance delete httpserver-c
 kraft cloud instance list
-kraft cloud instance create -M 256Mi -p 443:8080 --name httpserver-c --entrypoint "" index.unikraft.io/"$UKC_USER"/httpserver-c:latest -- /http_server_args '"Bye, World!"'
+kraft cloud instance create -M 256M -p 443:8080/tls+http --name httpserver-c --entrypoint "" index.unikraft.io/"$UKC_USER"/httpserver-c:latest -- /http_server_args '"Bye, World!"'
 kraft cloud instance start httpserver-c
 kraft cloud instance list
 kraft cloud instance get httpserver-c

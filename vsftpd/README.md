@@ -3,7 +3,8 @@
 This guide explains how to create and deploy a [vsftpd](https://security.appspot.com/vsftpd.html) app, to secure access to the files of your VM.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/vsftpd` directory:
 
@@ -12,35 +13,37 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/vsftpd/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following commands to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud volume create \
-    --name vsftpd-workspace \
-    --size 1Gi
+```bash title="unikraft"
+unikraft volume create --set metro=fra --set name=vsftpd-workspace --set size=1G
 
-kraft cloud deploy \
-    --scale-to-zero on \
-    --scale-to-zero-stateful \
-    --scale-to-zero-cooldown 3s \
-    --name vsftpd \
-    -p 20:20/tls \
-    -p 21:21/tls \
-    -p 222:22/tls \
-    -p 990:990/tls \
-    -p 10100:10100/tls \
-    -M 1Gi \
-    -v "vsftpd-workspace":/root \
-    .
+unikraft build . --output <my-org>/vsftpd:latest
+unikraft run --metro=fra --scale-to-zero policy=on,cooldown-time=40000,stateful=true -p 20:20/tls -p 21:21/tls -p 222:22/tls -p 990:990/tls -p 10100:10100/tls -m 1G --volume vsftpd-workspace:/root <my-org>/vsftpd:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud volume create --name vsftpd-workspace --size 1G
+
+kraft cloud deploy --scale-to-zero on --scale-to-zero-stateful --scale-to-zero-cooldown 3s --name vsftpd -p 20:20/tls -p 21:21/tls -p 222:22/tls -p 990:990/tls -p 10100:10100/tls -M 1G -v vsftpd-workspace:/root .
 ```
 
 The output shows the instance address and other details:
@@ -53,7 +56,7 @@ The output shows the instance address and other details:
  ├────── metro: https://api.fra.unikraft.cloud/v1
  ├────── state: starting
  ├───── domain: broken-orangutan-jypu2z53.fra.unikraft.app
- ├────── image: vsftpd@sha256:31aad1619c31f499b11f1bef8fead6e6df76f235a57add011e5e414a3f51ee64 
+ ├────── image: vsftpd@sha256:31aad1619c31f499b11f1bef8fead6e6df76f235a57add011e5e414a3f51ee64
  ├───── memory: 1024 MiB
  ├──── service: broken-orangutan-jypu2z53
  ├─ private ip: 10.0.0.109
@@ -77,7 +80,13 @@ lftp root@broken-orangutan-jypu2z53.fra.unikraft.app:~> ls
 
 You can list information about the volume by running:
 
-```bash
+```bash title="unikraft"
+unikraft volumes list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud volume list
 ```
 
@@ -88,7 +97,13 @@ vsftpd-workspace  9 minutes ago  1.0 GiB  vsftpd       vsftpd      mounted  true
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -99,14 +114,26 @@ vsftpd  broken-orangutan-jypu2z53.fra.unikraft.app  standby  standby  vsftpd@sha
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete vsftpd
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove vsftpd
 ```
 
 The volume isn't removed by default, so you can recreate the instance and still have access to your old data.
 Remove it using:
 
-```bash
+```bash title="unikraft"
+unikraft volume delete vsftpd-workspace
+```
+
+or
+
+```bash title="kraft"
 kraft cloud volume remove vsftpd-workspace
 ```
 
@@ -114,8 +141,14 @@ kraft cloud volume remove vsftpd-workspace
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

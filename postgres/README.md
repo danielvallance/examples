@@ -4,7 +4,8 @@ This guide shows you how to use [PostgreSQL](https://www.postgresql.org/), a pow
 
 To run it, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/postgres/` directory:
 
@@ -13,10 +14,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/postgres/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -24,8 +32,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -e POSTGRES_PASSWORD=unikraft -p 5432:5432/tls -M 1Gi .
+```bash title="unikraft"
+unikraft build . --output <my-org>/postgres:latest
+unikraft run --metro=fra -p 5432:5432/tls -m 1G -e POSTGRES_PASSWORD=unikraft <my-org>/postgres:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 5432:5432/tls -M 1G -e POSTGRES_PASSWORD=unikraft .
 ```
 
 The output shows the instance address and other details:
@@ -85,7 +100,13 @@ Use SQL and `psql` commands for your work.
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -96,7 +117,13 @@ postgres-saan9  young-thunder-fbafrsxj.fra.unikraft.app  running  6 minutes ago 
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instance remove postgres-saan9
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove postgres-saan9
 ```
 
@@ -105,14 +132,27 @@ kraft cloud instance remove postgres-saan9
 You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persistence for your PostgreSQL instance.
 For that you would first create a volume:
 
-```console
+```bash title="unikraft"
+unikraft volume create --set metro=fra --set name=postgres --set size=200M
+```
+
+or
+
+```bash title="kraft"
 kraft cloud volume create --name postgres --size 200
 ```
 
 Then start the PostgreSQL instance and mount that volume:
 
-```bash
-kraft cloud deploy -p 5432:5432/tls -M 1Gi -e POSTGRES_PASSWORD=unikraft -e PGDATA=/volume/postgres -v postgres:/volume .
+```bash title="unikraft"
+unikraft build . --output <my-org>/postgres:latest
+unikraft run --metro=fra -p 5432:5432/tls -m 1G -e POSTGRES_PASSWORD=unikraft -e PGDATA=/volume/postgres --volume postgres:/volume <my-org>/postgres:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 5432:5432/tls -M 1G -e POSTGRES_PASSWORD=unikraft -e PGDATA=/volume/postgres -v postgres:/volume .
 ```
 
 ## Customize your deployment
@@ -135,8 +175,14 @@ But in that case make sure to disable scale-to-zero if you plan to use the DB in
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

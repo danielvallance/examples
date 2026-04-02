@@ -1,9 +1,10 @@
-# HTTP Server with FastAPI
+# FastAPI HTTP Server
 
 This guide explains how to create and deploy a Python FastAPI web app.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12-FastAPI-0.121.3/` directory:
 
@@ -12,10 +13,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-python3.12-FastAPI-0.121.3/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -23,8 +31,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -32,17 +47,17 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────── name: httpserver-python312-fastapi-01213-0n84f                                                                                 
- ├────── uuid: 5d7fc331-3c23-4953-b025-d152a872ea29                                                                               
- ├───── metro: fra                                                                                                                
- ├───── state: running                                                                                                   
- ├──── domain: https://dry-water-0oexx89g.fra.unikraft.app                                                                        
- ├───── image: httpserver-python312-fastapi-01213@sha256:fb2a00dcf1cfc3ac821cbda05f82f38d66e63121344b9bc60c6a6e2f11917b98 
- ├─ boot time: 170.42 ms                                                                                                          
- ├──── memory: 512 MiB                                                                                                            
- ├─── service: dry-water-0oexx89g                                                                                                 
- ├ private ip: 10.0.1.69                                                                                                          
- └────── args: /usr/bin/python3 -m uvicorn src.server:app --host 0.0.0.0 --port 8080     
+ ├────── name: httpserver-python312-fastapi-01213-0n84f
+ ├────── uuid: 5d7fc331-3c23-4953-b025-d152a872ea29
+ ├───── metro: fra
+ ├───── state: running
+ ├──── domain: https://dry-water-0oexx89g.fra.unikraft.app
+ ├───── image: httpserver-python312-fastapi-01213@sha256:fb2a00dcf1cfc3ac821cbda05f82f38d66e63121344b9bc60c6a6e2f11917b98
+ ├─ boot time: 170.42 ms
+ ├──── memory: 512 MiB
+ ├─── service: dry-water-0oexx89g
+ ├ private ip: 10.0.1.69
+ └────── args: /usr/bin/python3 -m uvicorn src.server:app --host 0.0.0.0 --port 8080
 ```
 
 In this case, the instance name is `httpserver-python312-fastapi-01213-0n84f` and the address is `https://dry-water-0oexx89g.fra.unikraft.app`.
@@ -59,7 +74,13 @@ curl https://dry-water-0oexx89g.fra.unikraft.app
 ```
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -70,7 +91,13 @@ httpserver-python312-fastapi-01213-0n84f  dry-water-0oexx89g.fra.unikraft.app  s
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances remove httpserver-python312-fastapi-01213-0n84f
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-python312-fastapi-01213-0n84f
 ```
 
@@ -115,8 +142,15 @@ The [`httpserver-python3.12-FastAPI-0.121.3`](https://github.com/unikraft-cloud/
 
 Run the command below to deploy the app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 Differences from the FastAPI app are also the steps required to create an `pip`-based app:
@@ -162,8 +196,14 @@ Similar actions apply to other `pip3`-based apps.
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

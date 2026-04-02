@@ -5,7 +5,8 @@ A webhook, also called a reverse API, is a way for a server to send real-time da
 In this case, the webhook receiver listens for GitHub events, such as push events or pull request events, and logs them to the console.
 To run this it, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/github-webhook-node/` directory:
 
@@ -14,10 +15,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/github-webhook-node/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -25,8 +33,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 1Gi -e GITHUB_WEBHOOK_SECRET=your_secret_here .
+```bash title="unikraft"
+unikraft build . --output <my-org>/github-webhook-node:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 1G -e GITHUB_WEBHOOK_SECRET=your_secret_here <my-org>/github-webhook-node:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 1G -e GITHUB_WEBHOOK_SECRET=your_secret_here .
 ```
 
 `GITHUB_WEBHOOK_SECRET` is the secret used to verify incoming webhook requests from GitHub.
@@ -36,15 +51,15 @@ The output shows the instance address and other details:
 ```ansi
 [●] Deployed successfully!
  │
- ├─────── name: github-webhook-node-bzq7u                                                                         
- ├─────── uuid: 8a8634f1-fc78-4cc0-aa36-8f082d8a59f5                                                              
- ├────── metro: https://api.fra.unikraft.cloud/v1                                                                 
- ├────── state: starting                                                                                 
- ├───── domain: https://dry-cloud-uuw0qlb6.fra.unikraft.app                                                       
- ├────── image: github-webhook-node@sha256:10974aac67ce6355148e21d91f918960bf0af29ad840fffeeb2fd01f8c905f66 
- ├───── memory: 1024 MiB                                                                                          
- ├──── service: dry-cloud-uuw0qlb6                                                                                
- ├─ private ip: 10.0.1.205                                                                                        
+ ├─────── name: github-webhook-node-bzq7u
+ ├─────── uuid: 8a8634f1-fc78-4cc0-aa36-8f082d8a59f5
+ ├────── metro: https://api.fra.unikraft.cloud/v1
+ ├────── state: starting
+ ├───── domain: https://dry-cloud-uuw0qlb6.fra.unikraft.app
+ ├────── image: github-webhook-node@sha256:10974aac67ce6355148e21d91f918960bf0af29ad840fffeeb2fd01f8c905f66
+ ├───── memory: 1024 MiB
+ ├──── service: dry-cloud-uuw0qlb6
+ ├─ private ip: 10.0.1.205
  └─────── args: node /app/server.js
 ```
 
@@ -66,7 +81,13 @@ When a request comes in, Unikraft Cloud automatically starts the instance.
 
 To see the incoming webhook events (you set up the [webhook in GitHub](#test-github-webhooks)), you can retrieve the logs of the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances logs github-webhook-node-bzq7u
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance logs github-webhook-node-bzq7u --follow
 ```
 
@@ -87,7 +108,13 @@ kraft cloud instance logs github-webhook-node-bzq7u --follow
 GitHub sends the `ping` event when you set up the webhook.
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -98,7 +125,13 @@ github-webhook-node-bzq7u  dry-cloud-uuw0qlb6.fra.unikraft.app  standby  standby
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete github-webhook-node-bzq7u
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove github-webhook-node-bzq7u
 ```
 
@@ -110,7 +143,13 @@ You should also set the content type to `application/json` and select the events
 Lastly, you should set the secret to verify that the requests come from GitHub and weren't tampered with.
 Now, once you make changes in the repository (that you are listening to), you should see the webhook events logged in the instance logs:
 
-```bash
+```bash title="unikraft"
+unikraft instances logs github-webhook-node-bzq7u
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance logs github-webhook-node-bzq7u --follow
 ```
 
@@ -146,8 +185,14 @@ To customize the app, update the files in the repository, listed below:
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

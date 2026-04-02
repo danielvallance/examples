@@ -51,7 +51,7 @@ You can copy-paste them:
 
 ```console
 source ukc.config
-kraft cloud deploy -M 256Mi -p 443:8080 --name httpserver-c .
+kraft cloud deploy -M 256M -p 443:8080/tls+http --name httpserver-c .
 kraft cloud image list
 kraft cloud instance list
 kraft cloud instance get httpserver-c
@@ -76,7 +76,7 @@ source ukc.config
 kraft pkg --plat kraftcloud --arch x86_64 --name index.unikraft.io/"$UKC_USER"/httpserver-c:latest .
 kraft pkg push index.unikraft.io/"$UKC_USER"/httpserver-c:latest
 kraft cloud image list
-kraft cloud instance create -M 256Mi -p 443:8080 --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
+kraft cloud instance create -M 256M -p 443:8080/tls+http --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
 kraft cloud instance start httpserver-c
 kraft cloud instance list
 kraft cloud instance get httpserver-c
@@ -130,7 +130,7 @@ This command will load the Unikraft Cloud configuration parameters (user, token,
 The easiest way to deploy a Unikraft Cloud instance is with:
 
 ```console
-kraft cloud deploy -M 256Mi -p 443:8080 --name httpserver-c .
+kraft cloud deploy -M 256M -p 443:8080/tls+http --name httpserver-c .
 ```
 
 This command does 3 steps all-in-one:
@@ -214,7 +214,7 @@ razvand/httpserver-c           latest   39 MB
 To create an instance (from an image), use:
 
 ```console
-kraft cloud instance create -M 256Mi -p 443:8080 --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
+kraft cloud instance create -M 256M -p 443:8080/tls+http --name httpserver-c index.unikraft.io/"$UKC_USER"/httpserver-c:latest
 ```
 
 Once the command completes, you will get an output of the running instance, similar to the one below:

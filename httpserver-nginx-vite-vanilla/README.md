@@ -1,4 +1,4 @@
-# HTTP Server with Nginx and Vite
+# Vite HTTP Server
 
 This example demonstrates how to run a [Vite](https://vite.dev) project targeting production on Unikraft Cloud.
 The deployment doesn't perform any server-side rendering and instead serves the resulting artifacts statically (via `npm run build`) using [`nginx`](https://github.com/unikraft-cloud/examples/nginx).
@@ -6,7 +6,8 @@ To use Vite in server-side rendering (SSR) mode or via the `dev` subcommand on a
 
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-nginx-vite-vanilla` directory:
 
@@ -15,19 +16,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-nginx-vite-vanilla/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 256 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-nginx-vite-vanilla:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-nginx-vite-vanilla:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 256M .
 ```
 
 The output shows the instance address and other details:
@@ -72,7 +87,13 @@ curl https://swift-lake-m4n8vqzp.fra.unikraft.app
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -83,7 +104,13 @@ httpserver-nginx-vite-vanilla-2rk6p  swift-lake-m4n8vqzp.fra.unikraft.app  runni
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-nginx-vite-vanilla-2rk6p
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-nginx-vite-vanilla-2rk6p
 ```
 
@@ -130,10 +157,17 @@ The following options are available for customizing the app:
 - [Unikraft Cloud's Documentation](https://unikraft.cloud/docs/)
 - [Building `Dockerfile` images with `Buildkit`](https://unikraft.org/guides/building-dockerfile-images-with-buildkit)
 
+
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

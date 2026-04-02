@@ -4,7 +4,8 @@
 
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/node24-karaoke` directory:
 
@@ -13,19 +14,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/node24-karaoke/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 2Gi .
+```bash title="unikraft"
+unikraft build . --output <my-org>/node24-karaoke:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 2G <my-org>/node24-karaoke:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 2G .
 ```
 
 The output shows the instance address and other details:
@@ -70,7 +85,13 @@ curl https://wild-song-p5q2nrwx.fra.unikraft.app
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -81,7 +102,13 @@ node24-karaoke-9lw5q  wild-song-p5q2nrwx.fra.unikraft.app  running  since 3mins 
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete node24-karaoke-9lw5q
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove node24-karaoke-9lw5q
 ```
 
@@ -129,10 +156,17 @@ The following options are available for customizing the app:
 - [Unikraft Cloud's Documentation](https://unikraft.cloud/docs/)
 - [Building `Dockerfile` images with `Buildkit`](https://unikraft.org/guides/building-dockerfile-images-with-buildkit)
 
+
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

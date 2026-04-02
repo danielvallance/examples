@@ -8,7 +8,8 @@ This is a great starting point for building your own custom MCP servers with bus
 
 To run this MCP server on Unikraft Cloud:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine (for example, Docker).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/mcp-server-simple/` directory:
 
@@ -17,19 +18,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/mcp-server-simple/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
-export UKC_TOKEN=your-token-here
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
+export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:8080 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/mcp-server-simple:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/mcp-server-simple:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 The output shows your instance details:
@@ -81,7 +96,13 @@ Description: Get current time in a timezone.
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -135,11 +156,11 @@ mcp = FastMCP("My Custom Server")
 @mcp.tool()
 def my_custom_tool(param1: str, param2: int) -> str:
     """Description of what this tool does.
-    
+
     Args:
         param1: Description of first parameter
         param2: Description of second parameter
-    
+
     Returns:
         Result description
     """
@@ -172,3 +193,17 @@ This provides:
 * [Building MCP Servers](https://modelcontextprotocol.io/docs/building-servers)
 * [Unikraft Cloud Documentation](https://unikraft.com/docs/)
 * [Building `Dockerfile` Images with `Buildkit`](https://unikraft.org/guides/building-dockerfile-images-with-buildkit)
+
+Use the `--help` option for detailed information on using Unikraft Cloud:
+
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
+kraft cloud --help
+```
+
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

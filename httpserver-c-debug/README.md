@@ -3,7 +3,8 @@
 This guide explains how to create and deploy a C app with debugging enabled.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-c-debug` directory:
 
@@ -12,25 +13,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-c-debug/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
-
-```bash
-kraft cloud deploy -p 443:8080/http+tls -p 2222:2222/tls -M 256 -e PUBKEY="...." .
-```
-
 For extensive debug information with `strace`, add the `USE_STRACE=1` environment variable to the deploy command:
 
-```bash
-kraft cloud deploy -p 443:8080 -p 2222:2222 -M 256 -e PUBKEY="...." -e USE_STRACE=1 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-c-debug:latest
+unikraft run --metro=fra -p 443:8080/tls+http -p 2222:2222/tls -e PUBKEY=.... -e USE_STRACE=1 -m 256M <my-org>/httpserver-c-debug:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:8080/tls+http -p 2222:2222/tls -M 256M -e PUBKEY="...." -e USE_STRACE=1 .
 ```
 
 The output shows the instance address and other details:
@@ -43,7 +52,7 @@ The output shows the instance address and other details:
  ├───── metro: https://api.fra.unikraft.cloud/v1
  ├───── state: running
  ├──── domain: https://patient-snow-zdzhdy8r.fra.unikraft.app
- ├───── image: httpserver-c-debug@sha256:b24b95e236c8eff69615dd4f5d257beed5ee4047fd98d1b6fb200f89c63fa54c 
+ ├───── image: httpserver-c-debug@sha256:b24b95e236c8eff69615dd4f5d257beed5ee4047fd98d1b6fb200f89c63fa54c
  ├─ boot time: 66.56 ms
  ├──── memory: 256 MiB
  ├─── service: patient-snow-zdzhdy8r
@@ -81,7 +90,13 @@ This is normal if you have set up tunnels to connect with SSH on `localhost`, so
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -92,7 +107,13 @@ httpserver-c-debug-5pvem  patient-snow-zdzhdy8r.fra.unikraft.app  running  since
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-c-debug-5pvem
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-c-debug-5pvem
 ```
 
@@ -100,8 +121,14 @@ kraft cloud instance remove httpserver-c-debug-5pvem
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

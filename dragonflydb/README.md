@@ -4,7 +4,8 @@ This guides shows you how to deploy [Dragonfly](https://www.dragonflydb.io/), a 
 
 To run it example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/dragonflydb/` directory:
 
@@ -13,10 +14,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/dragonflydb/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -24,8 +32,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:6379 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/dragonflydb:latest
+unikraft run --metro=fra -p 443:6379/http+tls -m 512M <my-org>/dragonflydb:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:6379/http+tls -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -84,7 +99,13 @@ document.querySelector('.left_panel').innerHTML = JsonToHTML(json_text1);
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -95,7 +116,13 @@ dragonflydb-10zgk  dry-moon-x6bgl6c0.fra.unikraft.app  running  1 minute ago  dr
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete dragonflydb-10zgk
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove dragonflydb-10zgk
 ```
 
@@ -110,8 +137,14 @@ To customize the app, update the files in the repository, listed below:
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

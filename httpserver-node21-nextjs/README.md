@@ -1,9 +1,10 @@
-# HTTP Server with Next.js
+# Next.js HTTP Server
 
 This guide explains how to create and deploy a Next.js app.
 To run this example, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-node21-nextjs` directory:
 
@@ -12,19 +13,33 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-node21-nextjs/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
 ```
 
-When done, invoke the following command to deploy the app on Unikraft Cloud:
+When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 768 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-node21-nextjs:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 768M <my-org>/httpserver-node21-nextjs:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 768M .
 ```
 
 The output shows the instance address and other details:
@@ -62,7 +77,13 @@ Or even better, point a browser at it 😀.
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -73,7 +94,13 @@ httpserver-node21-nextjs-bfrq0  small-frog-ri8c1vtw.fra.unikraft.app  running  1
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-node21-nextjs-bfrq0
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-node21-nextjs-bfrq0
 ```
 
@@ -125,8 +152,15 @@ cd examples/httpserver-expressjs4.18-node21/
 
 Run the command below to deploy the app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 256 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-expressjs4.18-node21:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 256M <my-org>/httpserver-expressjs4.18-node21:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 256M .
 ```
 
 Differences from the `http-node21` app are also the steps required to create an `npm`-based app:
@@ -177,8 +211,14 @@ See also other Node examples: [`httpserver-node18-prisma-rest-express`](https://
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).

@@ -1,10 +1,11 @@
-# HTTP Server with Prisma
+# Prisma HTTP Server
 
 This app comes from [Prisma's REST API Example](https://github.com/prisma/prisma-examples/tree/latest/javascript/rest-express) and shows how to create a **REST API** using [Express](https://expressjs.com/) and [Prisma Client](https://www.prisma.io/docs/concepts/components/prisma-client) and deploy it onto Unikraft Cloud.
 It uses a SQLite database file with some initial [migration data](./prisma/migrations/20240208151224_init/).
 To run it, follow these steps:
 
-1. Install the [`kraft` CLI tool](https://unikraft.org/docs/cli/install) and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
+   Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
 2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-node18-prisma-rest-express/` directory:
 
@@ -13,10 +14,17 @@ git clone https://github.com/unikraft-cloud/examples
 cd examples/httpserver-node18-prisma-rest-express/
 ```
 
-Make sure to log into Unikraft Cloud by setting your token and a [metro](https://unikraft.com/docs/platform/metros) close to you.
+Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
 This guide uses `fra` (Frankfurt, 🇩🇪):
 
-```bash
+```bash title="unikraft"
+unikraft login
+```
+
+or
+
+```bash title="kraft"
+# Set Unikraft Cloud access token
 export UKC_TOKEN=token
 # Set metro to Frankfurt, DE
 export UKC_METRO=fra
@@ -24,8 +32,15 @@ export UKC_METRO=fra
 
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
-```bash
-kraft cloud deploy -p 443:3000 -M 512 .
+```bash title="unikraft"
+unikraft build . --output <my-org>/httpserver-prisma-expressjs4.19-node18:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 512M <my-org>/httpserver-prisma-expressjs4.19-node18:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -p 443:3000/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -63,7 +78,13 @@ curl https://funky-sun-4bf8v7g9.fra.unikraft.app/users
 
 You can list information about the instance by running:
 
-```bash
+```bash title="unikraft"
+unikraft instances list
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance list
 ```
 
@@ -74,7 +95,13 @@ httpserver-node18-prisma-hdof1  funky-sun-4bf8v7g9.fra.unikraft.app  running  1 
 
 When done, you can remove the instance:
 
-```bash
+```bash title="unikraft"
+unikraft instances delete httpserver-node18-prisma-hdof1
+```
+
+or
+
+```bash title="kraft"
 kraft cloud instance remove httpserver-node18-prisma-hdof1
 ```
 
@@ -317,8 +344,14 @@ datasource db {
 
 Use the `--help` option for detailed information on using Unikraft Cloud:
 
-```bash
+```bash title="unikraft"
+unikraft --help
+```
+
+or
+
+```bash title="kraft"
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/unikraft) or the legacy [CLI Reference](https://unikraft.org/docs/cli/kraft/overview).
