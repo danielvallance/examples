@@ -62,7 +62,8 @@ The output shows the instance address and other details:
 In this case, the instance name is `debian-ssh-2uwg5` and the address is `nameless-cherry-sw2e9ul2.fra.unikraft.app`.
 They're different for each run.
 
-You need to set up a tunnel that handles the TLS connection to the Unikraft Cloud instance, so that you have a non-TLS port that your SSH client can connect to:
+You need to set up a tunnel that handles the TLS connection to the Unikraft Cloud instance.
+This way, you have a non-TLS port that your SSH client can connect to:
 
 ```bash
 socat TCP-LISTEN:2222,reuseaddr,fork OPENSSL:nameless-cherry-sw2e9ul2.fra.unikraft.app:2222,verify=0

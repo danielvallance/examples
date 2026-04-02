@@ -73,7 +73,8 @@ curl https://patient-snow-zdzhdy8r.fra.unikraft.app
 Hello, World!
 ```
 
-For SSH, you need to set up a tunnel that handles the TLS connection to the Unikraft Cloud instance, so that you have a non-TLS port that your SSH client can connect to:
+For SSH, you need to set up a tunnel that handles the TLS connection to the Unikraft Cloud instance.
+This way, you have a non-TLS port that your SSH client can connect to:
 
 ```bash
 socat TCP-LISTEN:2222,reuseaddr,fork OPENSSL:patient-snow-zdzhdy8r.fra.unikraft.app:2222,verify=0
