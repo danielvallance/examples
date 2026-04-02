@@ -1,4 +1,4 @@
-# Very Secure FTP Daemon
+# vsftpd
 
 This guide explains how to create and deploy a [vsftpd](https://security.appspot.com/vsftpd.html) app, to secure access to the files of your VM.
 To run this example, follow these steps:
