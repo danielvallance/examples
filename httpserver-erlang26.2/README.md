@@ -86,7 +86,7 @@ kraft cloud instance list
 
 ```ansi
 NAME                         FQDN                                     STATE    STATUS        IMAGE                                 MEMORY   VCPUS  ARGS                                  BOOT TIME
-httpserver-erlang26.2-sw2bp  patient-field-ck629jsu.fra.unikraft.app  running  since 35secs  httpserver-erlang26.2@sha256:4372...  512 MiB  1      /usr/bin/wrapper.sh /usr/bin/erl ...  404.04 ms
+httpserver-erlang26.2-sw2bp  patient-field-ck629j2u.fra.unikraft.app  running  since 35secs  httpserver-erlang26.2@sha256:4372...  512 MiB  1      /usr/bin/wrapper.sh /usr/bin/erl ...  404.04 ms
 ```
 
 When done, you can remove the instance:
