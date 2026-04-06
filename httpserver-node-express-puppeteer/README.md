@@ -113,4 +113,4 @@ Use the `--help` option for detailed information on using Unikraft Cloud:
 kraft cloud --help
 ```
 
-Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview).
+Or visit the [CLI Reference](https://unikraft.com/docs/cli/overview) or the [legacy CLI Reference](https://unikraft.com/docs/cli/overview).
