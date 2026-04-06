@@ -2,6 +2,8 @@
 
 set -ex
 
+chown root:root /run/sshd
+
 # Start SSH server.
 export HOME=/root
 
