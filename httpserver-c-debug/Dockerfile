@@ -27,6 +27,7 @@ COPY --from=build /etc/group /etc/group
 
 # Basic binaries
 COPY --from=build /usr/sbin/sshd /usr/sbin/sshd
+COPY --from=build /usr/bin/chown /usr/bin/chown
 COPY --from=build /usr/bin/strace /usr/bin/strace
 COPY --from=build /usr/bin/netstat /usr/bin/netstat
 COPY --from=build /usr/bin/su /usr/bin/su
