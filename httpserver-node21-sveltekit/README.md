@@ -35,13 +35,13 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-node21-sveltekit:latest
-unikraft run --metro=fra -p 443:3000/tls+http -m 256M <my-org>/httpserver-node21-sveltekit:latest
+unikraft run --metro=fra -p 443:3000/tls+http -m 512M <my-org>/httpserver-node21-sveltekit:latest
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud deploy -p 443:3000/tls+http -M 256M .
+kraft cloud deploy -p 443:3000/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -55,7 +55,7 @@ The output shows the instance address and other details:
  ├─────────── url: https://dark-fog-z18n0ej1.fra.unikraft.app
  ├───────── image: httpserver-node21-sveltekit@sha256:4cea210aef3513bd68490640b511ebcff2b867e9222028b9938faccffc21cb83
  ├───── boot time: 72.86ms
- ├──────── memory: 256 MiB
+ ├──────── memory: 512 MiB
  ├─────── service: dark-fog-z18n0ej1
  ├── private fqdn: httpserver-node21-sveltekit-zmt39.internal
  ├──── private ip: 172.16.3.3
@@ -96,7 +96,7 @@ kraft cloud instance list
 
 ```ansi
 NAME                               FQDN                                STATE    STATUS         IMAGE                                            MEMORY   VCPUS  ARGS                               BOOT TIME
-httpserver-node21-sveltekit-zmt39  dark-fog-z18n0ej1.fra.unikraft.app  running  5 minutes ago  httpserver-node21-sveltekit@sha256:4cea210ae...  256 MiB  1      /usr/bin/node /app/build/index.js  72.86 ms
+httpserver-node21-sveltekit-zmt39  dark-fog-z18n0ej1.fra.unikraft.app  running  5 minutes ago  httpserver-node21-sveltekit@sha256:4cea210ae...  512 MiB  1      /usr/bin/node /app/build/index.js  72.86 ms
 ```
 
 When done, you can remove the instance:
