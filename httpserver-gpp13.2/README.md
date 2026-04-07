@@ -6,11 +6,11 @@ To run this example, follow these steps:
 1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
    Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
-2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-g++13.2/` directory:
+2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-gpp13.2/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/httpserver-g++13.2/
+cd examples/httpserver-gpp13.2/
 ```
 
 Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,8 +32,8 @@ export UKC_METRO=fra
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
-unikraft build . --output <my-org>/httpserver-g++13.2:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-g++13.2:latest
+unikraft build . --output <my-org>/httpserver-gpp13.2:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-gpp13.2:latest
 ```
 
 or
@@ -47,20 +47,20 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────────── name: httpserver-g++13.2-jzbuo
+ ├────────── name: httpserver-gpp13.2-jzbuo
  ├────────── uuid: b8e015fd-d006-49d5-849e-3fd497c9159a
  ├───────── state: running
  ├─────────── url: https://throbbing-wave-grxjih4t.fra.unikraft.app
- ├───────── image: httpserver-g++13.2@sha256:a58873987104b52c13b79168a2e2f1a81876ba6efacd6dbc98e996afe5c09699
+ ├───────── image: httpserver-gpp13.2@sha256:a58873987104b52c13b79168a2e2f1a81876ba6efacd6dbc98e996afe5c09699
  ├───── boot time: 15.61 ms
  ├──────── memory: 256 MiB
  ├─────── service: throbbing-wave-grxjih4t
- ├── private fqdn: httpserver-g++13.2-jzbuo.internal
+ ├── private fqdn: httpserver-gpp13.2-jzbuo.internal
  ├──── private ip: 172.16.6.5
  └────────── args: /http_server
 ```
 
-In this case, the instance name is `httpserver-g++13.2-jzbuo` and the address is `https://throbbing-wave-grxjih4t.fra.unikraft.app`.
+In this case, the instance name is `httpserver-gpp13.2-jzbuo` and the address is `https://throbbing-wave-grxjih4t.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the C++ HTTP web server:
@@ -87,19 +87,19 @@ kraft cloud instance list
 
 ```ansi
 NAME                      FQDN                                      STATE    STATUS        IMAGE                                                           MEMORY   VCPUS  ARGS          BOOT TIME
-httpserver-g++13.2-jzbuo  throbbing-wave-grxjih4t.fra.unikraft.app  running  1 minute ago  httpserver-g++13.2@sha256:a58873987104b52c13b79168a2e2f1a81...  256 MiB  1      /http_server  15614us
+httpserver-gpp13.2-jzbuo  throbbing-wave-grxjih4t.fra.unikraft.app  running  1 minute ago  httpserver-gpp13.2@sha256:a58873987104b52c13b79168a2e2f1a81...  256 MiB  1      /http_server  15614us
 ```
 
 When done, you can remove the instance:
 
 ```bash title="unikraft"
-unikraft instances delete httpserver-g++13.2-jzbuo
+unikraft instances delete httpserver-gpp13.2-jzbuo
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud instance remove httpserver-g++13.2-jzbuo
+kraft cloud instance remove httpserver-gpp13.2-jzbuo
 ```
 
 ## Customize your app

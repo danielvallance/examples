@@ -6,11 +6,11 @@ To run this example, follow these steps:
 1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
    Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
-2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-boost1.74-g++13.2/` directory:
+2. Clone the [example repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-boost1.74-gpp13.2/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/httpserver-boost1.74-g++13.2/
+cd examples/httpserver-boost1.74-gpp13.2/
 ```
 
 Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,8 +32,8 @@ export UKC_METRO=fra
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
-unikraft build . --output <my-org>/httpserver-boost1.74-g++13.2:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-boost1.74-g++13.2:latest
+unikraft build . --output <my-org>/httpserver-boost1.74-gpp13.2:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-boost1.74-gpp13.2:latest
 ```
 
 or
@@ -47,20 +47,20 @@ The output shows the instance address and other details:
 ```text
 [●] Deployed successfully!
  │
- ├────────── name: httpserver-boost1.74-g++13.2-rae7s
+ ├────────── name: httpserver-boost1.74-gpp13.2-rae7s
  ├────────── uuid: 5a9886fa-f8a3-4860-afcf-d5eb13fdc38d
  ├───────── state: running
  ├─────────── url: https://red-snow-3bn7bzc8.fra.unikraft.app
- ├───────── image: httpserver-boost1.74-g++13.2@sha256:61cf86b89fed46351af53689e27189315e466576475f61c7240bf17644613489
+ ├───────── image: httpserver-boost1.74-gpp13.2@sha256:61cf86b89fed46351af53689e27189315e466576475f61c7240bf17644613489
  ├───── boot time: 15.00 ms
  ├──────── memory: 256 MiB
  ├─────── service: red-snow-3bn7bzc8
- ├── private fqdn: httpserver-boost1.74-g++13.2-rae7s.internal
+ ├── private fqdn: httpserver-boost1.74-gpp13.2-rae7s.internal
  ├──── private ip: 172.16.6.4
  └────────── args: /http_server
 ```
 
-In this case, the instance name is `httpserver-boost1.74-g++13.2-rae7s` and the address is `https://red-snow-3bn7bzc8.fra.unikraft.app`.
+In this case, the instance name is `httpserver-boost1.74-gpp13.2-rae7s` and the address is `https://red-snow-3bn7bzc8.fra.unikraft.app`.
 They're different for each run.
 
 Use `curl` to query the Unikraft Cloud instance of the C++ Boost HTTP web server:
@@ -87,19 +87,19 @@ kraft cloud instance list
 
 ```ansi
 NAME                                FQDN                                STATE    STATUS        IMAGE                                          MEMORY   VCPUS  ARGS          BOOT TIME
-httpserver-boost1.74-g++13.2-rae7s  red-snow-3bn7bzc8.fra.unikraft.app  running  1 minute ago  httpserver-boost1.74-g++13.2@sha256:61cf86...  256 MiB  1      /http_server  15000us
+httpserver-boost1.74-gpp13.2-rae7s  red-snow-3bn7bzc8.fra.unikraft.app  running  1 minute ago  httpserver-boost1.74-gpp13.2@sha256:61cf86...  256 MiB  1      /http_server  15000us
 ```
 
 When done, you can remove the instance:
 
 ```bash title="unikraft"
-unikraft instances delete httpserver-boost1.74-g++13.2-rae7s
+unikraft instances delete httpserver-boost1.74-gpp13.2-rae7s
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud instance remove httpserver-boost1.74-g++13.2-rae7s
+kraft cloud instance remove httpserver-boost1.74-gpp13.2-rae7s
 ```
 
 ## Customize your app
