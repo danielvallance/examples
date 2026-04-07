@@ -95,7 +95,7 @@ This is normal behavior and means the instance is using Unikraft Cloud's scale-t
 To check your instance is working, open two terminals and use these commands to watch the status:
 
 ```bash title="unikraft"
-unikraft cloud instance list --watch
+unikraft instance list --watch
 # In another terminal, make requests
 curl https://fragrant-water-wau08gaw.fra.unikraft.app
 ```
