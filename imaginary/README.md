@@ -34,13 +34,13 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/imaginary:latest
-unikraft run --metro=fra -p 443:8088/tls+http -m 256M <my-org>/imaginary:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/imaginary:latest
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud deploy -p 443:8088/tls+http -M 256M .
+kraft cloud deploy -p 443:8080/tls+http -M 512M .
 ```
 
 The output shows the instance address and other details:
@@ -54,7 +54,7 @@ The output shows the instance address and other details:
  ├─────────── url: https://divine-wind-1ycjvhqs.fra.unikraft.app
  ├───────── image: imaginary@sha256:673834bc531038bb621266f7fd635a04e559050cbe82876df811fd4b975ea4fe
  ├───── boot time: 32.26 ms
- ├──────── memory: 256 MiB
+ ├──────── memory: 512 MiB
  ├─────── service: divine-wind-1ycjvhqs
  ├── private fqdn: imaginary-mwb4y.internal
  ├──── private ip: 172.16.3.3
@@ -106,7 +106,7 @@ kraft cloud instance list
 
 ```ansi
 NAME             FQDN                                   STATE    STATUS          IMAGE                                         MEMORY   VCPUS  ARGS                        BOOT TIME
-imaginary-mwb4y  divine-wind-1ycjvhqs.fra.unikraft.app  running  54 seconds ago  imaginary@sha256:673834bc531038bb621266f7...  256 MiB  1      /usr/bin/imaginary -p 8080  32262us
+imaginary-mwb4y  divine-wind-1ycjvhqs.fra.unikraft.app  running  54 seconds ago  imaginary@sha256:673834bc531038bb621266f7...  512 MiB  1      /usr/bin/imaginary -p 8080  32262us
 ```
 
 When done, you can remove the instance:
