@@ -127,7 +127,7 @@ You can customize the command line options used to start the service, by updatin
 ```yaml
 spec: v0.6
 
-runtime: imaginary:1.2
+runtime: base-compat:latest
 
 cmd: ["/usr/bin/imaginary", "-p", "8080"]
 ```
