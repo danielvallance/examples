@@ -6,11 +6,11 @@ To run this example, follow these steps:
 1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
    Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
-1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12-FastAPI-0.121.3/` directory:
+1. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-python3.12-fastapi-0.121.3/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/httpserver-python3.12-FastAPI-0.121.3/
+cd examples/httpserver-python3.12-fastapi-0.121.3/
 ```
 
 Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,8 +32,8 @@ export UKC_METRO=fra
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
-unikraft build . --output <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+unikraft build . --output <my-org>/httpserver-python3.12-fastapi-0.121.3:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-fastapi-0.121.3:latest
 ```
 
 or
@@ -138,13 +138,13 @@ The following options are available for customizing the app:
 It's used to install dependencies for Python apps.
 `pip` uses the `requirements.txt` file to list required dependencies (with versions).
 
-The [`httpserver-python3.12-FastAPI-0.121.3`](https://github.com/unikraft-cloud/examples/tree/main/httpserver-python3.12-FastAPI-0.121.3) guide details the use of `pip` to deploy an app using the [`FastAPI`](https://fastapi.tiangolo.com/) framework on Unikraft Cloud.
+The [`httpserver-python3.12-fastapi-0.121.3`](https://github.com/unikraft-cloud/examples/tree/main/httpserver-python3.12-fastapi-0.121.3) guide details the use of `pip` to deploy an app using the [`FastAPI`](https://fastapi.tiangolo.com/) framework on Unikraft Cloud.
 
 Run the command below to deploy the app on Unikraft Cloud:
 
 ```bash title="unikraft"
-unikraft build . --output <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-FastAPI-0.121.3:latest
+unikraft build . --output <my-org>/httpserver-python3.12-fastapi-0.121.3:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/httpserver-python3.12-fastapi-0.121.3:latest
 ```
 
 or
