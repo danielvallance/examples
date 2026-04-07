@@ -143,7 +143,7 @@ Lines in the `Kraftfile` have the following roles:
 
 * `spec: v0.6`: The current `Kraftfile` specification version is `0.6`.
 
-* `runtime: ruby:3.2`: The Unikraft runtime kernel to use is Ruby 3.2.
+* `runtime: base-compat:latest`: The runtime kernel to use is the base compatibility kernel.
 
 * `rootfs: ./Dockerfile`: Build the app root filesystem using the `Dockerfile`.
 
