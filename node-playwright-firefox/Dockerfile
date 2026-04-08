@@ -182,9 +182,11 @@ COPY --from=build /app /app
 
 # Required by wrapper script
 COPY --from=build /bin/sh /bin/sh
+COPY --from=build /usr/bin/chown /usr/bin/chown
 
 # Actual server implementation
 COPY ./server.js /app/server.js
 
 # Wrapper script
 COPY ./wrapper.sh /usr/bin/wrapper.sh
+
