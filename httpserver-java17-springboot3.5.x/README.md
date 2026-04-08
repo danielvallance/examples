@@ -6,11 +6,11 @@ To run this example, follow these steps:
 1. Install the CLI and a container runtime engine, for example [Docker](https://docs.docker.com/engine/install/).
    Use the [unikraft CLI](https://unikraft.com/docs/cli/unikraft) or the legacy [kraft CLI](https://unikraft.org/docs/cli/install).
 
-2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-java17-springboot3.2.x/` directory:
+2. Clone the [`examples` repository](https://github.com/unikraft-cloud/examples) and `cd` into the `examples/httpserver-java17-springboot3.5.x/` directory:
 
 ```bash
 git clone https://github.com/unikraft-cloud/examples
-cd examples/httpserver-java17-springboot3.2.x/
+cd examples/httpserver-java17-springboot3.5.x/
 ```
 
 Make sure to log into Unikraft Cloud and pick a [metro](https://unikraft.com/docs/platform/metros) close to you.
@@ -32,8 +32,8 @@ export UKC_METRO=fra
 When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
-unikraft build . --output <my-org>/httpserver-java17-springboot3.2.x:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 1G <my-org>/httpserver-java17-springboot3.2.x:latest
+unikraft build . --output <my-org>/httpserver-java17-springboot3.5.x:latest
+unikraft run --metro=fra -p 443:8080/tls+http -m 1G <my-org>/httpserver-java17-springboot3.5.x:latest
 ```
 
 or

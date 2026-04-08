@@ -11,7 +11,7 @@ RUN ldconfig /usr/lib/jvm/java-17-openjdk-amd64/lib/
 
 WORKDIR /src
 
-ARG BOOT_VERSION=3.4.11
+ARG BOOT_VERSION=3.5.13
 
 RUN set -xe ; \
     curl -G https://start.spring.io/starter.zip \
@@ -36,6 +36,9 @@ COPY DemoApplication.java src/main/java/com/example/demo/
 RUN set -xe ; \
     ./mvnw compile package install
 
+RUN rm -f /usr/lib/jvm/java-17-openjdk-amd64/lib/src.zip && \
+    cp -rL /usr/lib/jvm/java-17-openjdk-amd64/ /jvm-resolved/
+
 FROM scratch
 
 COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
@@ -46,7 +49,7 @@ COPY --from=build /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/x86_64-linux-gnu/libg
 COPY --from=build /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=build /etc/ld.so.cache /etc/ld.so.cache
 
-COPY --from=build /usr/lib/jvm/java-17-openjdk-amd64/ /usr/lib/jvm/java-17-openjdk-amd64/
+COPY --from=build /jvm-resolved/ /usr/lib/jvm/java-17-openjdk-amd64/
 COPY --from=build /etc/ssl/certs/java/cacerts /etc/ssl/certs/java/cacerts
 
 COPY --from=build /etc/java-17-openjdk/security/ /etc/java-17-openjdk/security/
