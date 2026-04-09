@@ -139,7 +139,7 @@ unikraft volume create --set metro=fra --set name=postgres --set size=200M
 or
 
 ```bash title="kraft"
-kraft cloud volume create --name postgres --size 200
+kraft cloud volume create --name postgres --size 200M
 ```
 
 Then start the PostgreSQL instance and mount that volume:

@@ -138,13 +138,13 @@ You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persi
 For that you would first create a volume:
 
 ```bash title="unikraft"
-unikraft volume create --set name=mariadb-store --set size=512M
+unikraft volume create --set metro=fra --set name=mariadb-store --set size=512M
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud volume create --name mariadb-store --size 512
+kraft cloud volume create --name mariadb-store --size 512M
 ```
 
 Then start the MariaDB instance and mount that volume:

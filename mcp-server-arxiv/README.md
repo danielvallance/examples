@@ -121,13 +121,13 @@ You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persi
 For that you would first create a volume:
 
 ```bash title="unikraft"
-unikraft volume create --set metro=fra --set name=mcp-server-arxiv-data --set size=500
+unikraft volume create --set metro=fra --set name=mcp-server-arxiv-data --set size=500M
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud volume create --name mcp-server-arxiv-data --size 500
+kraft cloud volume create --name mcp-server-arxiv-data --size 500M
 ```
 
 Then start the MCP server instance and mount that volume (while specifying the storage path):

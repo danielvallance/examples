@@ -61,30 +61,21 @@ The output shows the instance address and other details:
  └────────── args: /usr/bin/mongod --bind_ip_all --nounixsocket
 ```
 
-In this case, the instance name is `mongodb-6tiuu` which is different for each run.
+In this case, the instance name is `mongodb-6tiuu` and the the address is
+`bold-brook-khkwv7of.fra.unikraft.app` which is different for each run.
 
-To test the deployment, first forward the port with the `kraft cloud tunnel` command:
-
-```bash
-kraft cloud tunnel 27017:mongodb-6tiuu:27017
-```
-
-The `kraft cloud tunnel` command is only supported by the legacy CLI.
-
-Then, on a separate console, you can use the `mongosh` client to connect to the server:
+You can use the mongosh client to connect to the server:
 ```console
-mongosh mongodb://localhost
+mongosh "mongodb://bold-brook-khkwv7of.fra.unikraft.app:27017/?tls=true"
 ```
 
 You should see output like:
 
 ```console
-Current Mongosh Log ID: 65d75b96310f70e63565e0f1
-Connecting to:  mongodb://localhost/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.5
-(node:79750) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)
-Using MongoDB:  6.0.13
-Using Mongosh:  2.1.5
+Current Mongosh Log ID:	69d7a077dc5d28998344ba88
+Connecting to:		mongodb://bold-brook-khkwv7of.fra.unikraft.app:27017/?tls=true&directConnection=true&appName=mongosh+2.8.2
+Using MongoDB:		6.0.13
+Using Mongosh:		2.8.2
 
 For mongosh info see: https://docs.mongodb.com/mongodb-shell/
 
@@ -93,14 +84,6 @@ You can opt-out by running the disableTelemetry() command.
 
 test>
 ```
-
-To disconnect, kill the `tunnel` command with `Ctrl+c`.
-
-> **Note:**
-> This guide uses `kraft cloud tunnel` only when a service doesn't support TLS and isn't HTTP-based (TLS/SNI determines the correct instance to send traffic to).
-> Also note that the `tunnel` command isn't needed when connecting via an
-> instance's private IP/FQDN.
-> For example when a MongoDB instance serves as a database server to another instance that acts as a frontend and which **does** support TLS.
 
 You can list information about the instance by running:
 
@@ -129,6 +112,34 @@ or
 
 ```bash title="kraft"
 kraft cloud instance remove mongodb-6tiuu
+```
+
+## Using volumes
+
+You can use [volumes](https://unikraft.com/docs/platform/volumes) for data persistence for your MongoDB instance.
+For that you would first create a volume:
+
+```bash title="unikraft"
+unikraft volume create --set metro=fra --set name=mongodb-store --set size=512M
+```
+
+or
+
+```bash title="kraft"
+kraft cloud volume create --name mongodb-store --size 512M
+```
+
+Then start the MongoDB instance and mount that volume:
+
+```bash title="unikraft"
+unikraft build . --output <my-org>/mongodb:latest
+unikraft run --metro=fra -p 27017:27017/tls -m 1G --volume mongodb-store:/data/db <my-org>/mongodb:latest
+```
+
+or
+
+```bash title="kraft"
+kraft cloud deploy -M 1G -p 27017:27017/tls --volume mongodb-store:/data/db .
 ```
 
 ## Customize your app
