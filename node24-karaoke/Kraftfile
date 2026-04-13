@@ -7,8 +7,6 @@ labels:
   cloud.unikraft.v1.instances/scale_to_zero.stateful: "true"
   cloud.unikraft.v1.instances/scale_to_zero.cooldown_time_ms: 2000
 
-rootfs:
-  source: ./Dockerfile
-  type: erofs
+rootfs: ./Dockerfile
 
 cmd: ["/entrypoint.sh"]

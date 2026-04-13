@@ -1,3 +1,2 @@
-#!/bin/bash
-
-yes | npx serve -s /wwwroot -p 8080
+#!/bin/sh
+exec node /usr/local/lib/node_modules/serve/build/main.js -s /wwwroot -p 8080
