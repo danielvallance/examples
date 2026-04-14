@@ -58,6 +58,10 @@ COPY --from=runtime /usr/bin/dirname \
                     /usr/bin/basename \
                     /usr/bin/readlink \
                     /usr/bin/env \
+                    /usr/bin/cut \
+                    /usr/bin/sed \
+                    /usr/bin/cat \
+                    /usr/bin/grep \
                     /usr/bin/
 
 COPY --from=runtime /bin/rm \
@@ -73,9 +77,5 @@ COPY --from=build /src/_build /src/_build
 COPY --from=build /src/lib /src/lib
 COPY --from=build /src/mix.exs /src/mix.exs
 COPY --from=build /src/mix.lock /src/mix.lock
-COPY --from=build /usr/bin/cut /usr/bin/cut
-COPY --from=build /usr/bin/sed /usr/bin/sed
-COPY --from=build /usr/bin/cat /usr/bin/cat
-COPY --from=build /usr/bin/grep /usr/bin/grep
 
 COPY ./wrapper.sh /usr/bin/wrapper.sh
