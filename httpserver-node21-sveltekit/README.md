@@ -35,7 +35,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-node21-sveltekit:latest
-unikraft run --metro=fra -p 443:3000/tls+http -m 512M <my-org>/httpserver-node21-sveltekit:latest
+unikraft run --metro fra -p 443:3000/tls+http -m 512M --image <my-org>/httpserver-node21-sveltekit:latest
 ```
 
 or

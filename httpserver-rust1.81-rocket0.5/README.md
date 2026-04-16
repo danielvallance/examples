@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-rust1.81-rocket0.5:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-rust1.81-rocket0.5:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 256M --image <my-org>/httpserver-rust1.81-rocket0.5:latest
 ```
 
 or
@@ -93,13 +93,13 @@ httpserver-rust181-rocket05-tuwq3  empty-bobo-n3htmpye.fra.unikraft.app  running
 When done, you can remove the instance:
 
 ```bash title="unikraft"
-unikraft instances delete httpserver-rust181-rocket05-tuwq3 
+unikraft instances delete httpserver-rust181-rocket05-tuwq3
 ```
 
 or
 
 ```bash title="kraft"
-kraft cloud instance remove httpserver-rust181-rocket05-tuwq3 
+kraft cloud instance remove httpserver-rust181-rocket05-tuwq3
 ```
 
 ## Customize your app

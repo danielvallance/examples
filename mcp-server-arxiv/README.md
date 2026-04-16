@@ -46,7 +46,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mcp-server-arxiv:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 2G <my-org>/mcp-server-arxiv:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 2G --image <my-org>/mcp-server-arxiv:latest
 ```
 
 or
@@ -134,7 +134,7 @@ Then start the MCP server instance and mount that volume (while specifying the s
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mcp-server-arxiv:latest
-unikraft run --metro=fra -v mcp-server-arxiv-data:/volume -p 443:8080/tls+http -m 2G <my-org>/mcp-server-arxiv:latest -- "/usr/local/bin/python /src/server.py --storage-path /volume"
+unikraft run --metro fra -v mcp-server-arxiv-data:/volume -p 443:8080/tls+http -m 2G --image <my-org>/mcp-server-arxiv:latest -- "/usr/local/bin/python /src/server.py --storage-path /volume"
 ```
 
 or

@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/debian-ssh:latest
-unikraft run --metro=fra -p 2222:2222/tls -m 1G -e PUBKEY="...." <my-org>/debian-ssh:latest
+unikraft run --metro fra -p 2222:2222/tls -m 1G -e PUBKEY="...." --image <my-org>/debian-ssh:latest
 ```
 
 or

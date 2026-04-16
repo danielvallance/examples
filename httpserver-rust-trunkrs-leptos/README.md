@@ -5,7 +5,7 @@ Then clone this examples repository and `cd` into this directory, and invoke:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-rust-trunkrs-leptos:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 256M <my-org>/httpserver-rust-trunkrs-leptos:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 256M --image <my-org>/httpserver-rust-trunkrs-leptos:latest
 ```
 
 or

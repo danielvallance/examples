@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-python3.12-django5.0:latest
-unikraft run --metro=fra -p 443:80/tls+http -m 1G <my-org>/httpserver-python3.12-django5.0:latest
+unikraft run --metro fra -p 443:80/tls+http -m 1G --image <my-org>/httpserver-python3.12-django5.0:latest
 ```
 
 or
@@ -167,7 +167,7 @@ Run the command below to deploy the app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-python3.12-django5.0:latest
-unikraft run --metro=fra -p 443:80/tls+http -m 1G <my-org>/httpserver-python3.12-django5.0:latest
+unikraft run --metro fra -p 443:80/tls+http -m 1G --image <my-org>/httpserver-python3.12-django5.0:latest
 ```
 
 or

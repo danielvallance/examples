@@ -34,7 +34,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mongodb:latest
-unikraft run --metro=fra -p 27017:27017/tls -m 1G <my-org>/mongodb:latest
+unikraft run --metro fra -p 27017:27017/tls -m 1G --image <my-org>/mongodb:latest
 ```
 
 or
@@ -133,7 +133,7 @@ Then start the MongoDB instance and mount that volume:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mongodb:latest
-unikraft run --metro=fra -p 27017:27017/tls -m 1G --volume mongodb-store:/data/db <my-org>/mongodb:latest
+unikraft run --metro fra -p 27017:27017/tls -m 1G --volume mongodb-store:/data/db --image <my-org>/mongodb:latest
 ```
 
 or

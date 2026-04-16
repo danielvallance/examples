@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-node21-nextjs:latest
-unikraft run --metro=fra -p 443:3000/tls+http -m 768M <my-org>/httpserver-node21-nextjs:latest
+unikraft run --metro fra -p 443:3000/tls+http -m 768M --image <my-org>/httpserver-node21-nextjs:latest
 ```
 
 or
@@ -154,7 +154,7 @@ Run the command below to deploy the app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-expressjs4.18-node21:latest
-unikraft run --metro=fra -p 443:3000/tls+http -m 256M <my-org>/httpserver-expressjs4.18-node21:latest
+unikraft run --metro fra -p 443:3000/tls+http -m 256M --image <my-org>/httpserver-expressjs4.18-node21:latest
 ```
 
 or
