@@ -7,7 +7,7 @@ Then clone this repository and `cd` into this directory, and invoke:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/node-playwright-webkit:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 4G <my-org>/node-playwright-webkit:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 4G --image <my-org>/node-playwright-webkit:latest
 ```
 
 or

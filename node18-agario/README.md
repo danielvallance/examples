@@ -7,7 +7,7 @@ Then clone this examples repository and `cd` into this directory, and invoke:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/node18-agario:latest
-unikraft run --metro=fra -p 443:3000/tls+http -m 1G <my-org>/node18-agario:latest
+unikraft run --metro fra -p 443:3000/tls+http -m 1G --image <my-org>/node18-agario:latest
 ```
 
 or

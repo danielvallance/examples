@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-java17-springboot3.5.x:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 1G <my-org>/httpserver-java17-springboot3.5.x:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 1G --image <my-org>/httpserver-java17-springboot3.5.x:latest
 ```
 
 or

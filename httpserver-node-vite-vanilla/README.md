@@ -26,7 +26,7 @@ To deploy, `cd` into this directory and run:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-node-vite-vanilla:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 4G -e PWD=/app <my-org>/httpserver-node-vite-vanilla:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 4G -e PWD=/app --image <my-org>/httpserver-node-vite-vanilla:latest
 ```
 
 or

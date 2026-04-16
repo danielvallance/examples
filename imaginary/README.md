@@ -34,7 +34,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/imaginary:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 512M <my-org>/imaginary:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 512M --image <my-org>/imaginary:latest
 ```
 
 or

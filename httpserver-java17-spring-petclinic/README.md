@@ -7,7 +7,7 @@ Then clone this examples repository and `cd` into this directory, and invoke:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/httpserver-java17-spring-petclinic:latest
-unikraft run --metro=fra -p 443:8080/tls+http -m 1G <my-org>/httpserver-java17-spring-petclinic:latest
+unikraft run --metro fra -p 443:8080/tls+http -m 1G --image <my-org>/httpserver-java17-spring-petclinic:latest
 ```
 
 or

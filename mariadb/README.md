@@ -33,7 +33,7 @@ When done, invoke the following command to deploy this app on Unikraft Cloud:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mariadb:latest
-unikraft run --metro=fra -p 3306:3306/tls -m 1G -e MARIADB_ROOT_PASSWORD="unikraft" <my-org>/mariadb:latest
+unikraft run --metro fra -p 3306:3306/tls -m 1G -e MARIADB_ROOT_PASSWORD="unikraft" --image <my-org>/mariadb:latest
 ```
 
 or
@@ -151,7 +151,7 @@ Then start the MariaDB instance and mount that volume:
 
 ```bash title="unikraft"
 unikraft build . --output <my-org>/mariadb:latest
-unikraft run --metro=fra -p 3306:3306/tls -m 1G -e MARIADB_ROOT_PASSWORD="unikraft" --volume mariadb-store:/var/lib <my-org>/mariadb:latest
+unikraft run --metro fra -p 3306:3306/tls -m 1G -e MARIADB_ROOT_PASSWORD="unikraft" --volume mariadb-store:/var/lib --image <my-org>/mariadb:latest
 ```
 
 or
