@@ -2,7 +2,7 @@
 
 # Function to check if mkfs.erofs is available
 check_mkfs_erofs() {
-    if command -v mkfs.erofs &>/dev/null; then
+    if command -v mkfs.erofs >/dev/null 2>&1; then
         echo "mkfs.erofs is already installed."
         return 0
     else
@@ -13,17 +13,17 @@ check_mkfs_erofs() {
 
 # Function to install erofs-utils package
 install_erofs_utils() {
-    if command -v apt-get &>/dev/null; then
+    if command -v apt-get >/dev/null 2>&1; then
         echo "Detected Ubuntu/Debian-based system. Installing erofs-utils..."
         sudo apt update
         sudo apt install -y erofs-utils
-    elif command -v dnf &>/dev/null; then
+    elif command -v dnf >/dev/null 2>&1; then
         echo "Detected Fedora-based system. Installing erofs-utils..."
         sudo dnf install -y erofs-utils
-    elif command -v yum &>/dev/null; then
+    elif command -v yum >/dev/null 2>&1; then
         echo "Detected CentOS/RHEL-based system. Installing erofs-utils..."
         sudo yum install -y erofs-utils
-    elif command -v brew &>/dev/null; then
+    elif command -v brew >/dev/null 2>&1; then
         echo "Detected macOS system. Installing erofs-utils..."
         brew install erofs-utils
     else
