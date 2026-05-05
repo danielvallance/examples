@@ -71,5 +71,46 @@ jobs:
     - name: Authenticate unikraft CLI
       run: echo $UKC_TOKEN | unikraft login --token -
 
+    - name: Detect changed examples
+      id: changed
+      run: |
+        # For scheduled/manual runs, test everything.
+        if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          echo "dirs=." >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          BASE=${{ github.event.pull_request.base.sha }}
+        else
+          BASE=${{ github.event.before }}
+        fi
+
+        # Find top-level directories with changes (excluding shared infra).
+        CHANGED_DIRS=$(git diff --name-only "$BASE" HEAD | cut -d'/' -f1 | sort -u)
+
+        # If shared test infra changed, run all tests.
+        INFRA_PATTERNS="conftest.py|_testlib|pytest.ini|requirements.txt|.github"
+        if echo "$CHANGED_DIRS" | grep -qE "^($INFRA_PATTERNS)$"; then
+          echo "dirs=." >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        # Filter to directories that actually contain a test file.
+        TARGETS=""
+        for dir in $CHANGED_DIRS; do
+          if [[ -d "$dir" ]] && find "$dir" -maxdepth 1 -name 'test_*.py' | grep -q .; then
+            TARGETS="$TARGETS $dir"
+          fi
+        done
+
+        if [[ -z "$TARGETS" ]]; then
+          echo "No example tests to run for this change."
+          echo "dirs=" >> "$GITHUB_OUTPUT"
+        else
+          echo "dirs=$TARGETS" >> "$GITHUB_OUTPUT"
+        fi
+
     - name: Run tests
-      run: pytest --log-cli-level=INFO
+      if: steps.changed.outputs.dirs != ''
+      run: pytest --log-cli-level=INFO ${{ steps.changed.outputs.dirs }}
