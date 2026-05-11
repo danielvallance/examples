@@ -71,5 +71,8 @@ jobs:
     - name: Authenticate unikraft CLI
       run: echo $UKC_TOKEN | unikraft login --token -
 
+    - name: Debug – print CLI config
+      run: cat ~/.config/unikraft/config.yaml || echo "Config file not found"
+
     - name: Run tests
       run: pytest --log-cli-level=INFO
