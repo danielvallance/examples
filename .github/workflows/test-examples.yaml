@@ -7,6 +7,10 @@ on:
         description: 'Version of the unikraft CLI to install (passed to unikraft/setup-action).'
         required: false
         default: 'latest'
+      test_directory:
+        description: 'Example directory to test (e.g. "nginx"). Leave empty or set to "all" to run everything.'
+        required: false
+        default: 'all'
 
   # Run on any change except docs-only updates. `paths-ignore` keeps the
   # maintenance burden low — we don't need to enumerate every example
@@ -44,7 +48,75 @@ env:
   UKC_IMAGE_PREFIX: ${{ vars.UKC_IMAGE_PREFIX_STABLE || 'test' }}
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      test_dirs: ${{ steps.changes.outputs.test_dirs }}
+      run_all: ${{ steps.changes.outputs.run_all }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+
+    - name: Determine changed example directories
+      id: changes
+      run: |
+        # workflow_dispatch: honour the test_directory input.
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          DIR="${{ inputs.test_directory }}"
+          if [[ -z "$DIR" || "$DIR" == "all" ]]; then
+            echo "run_all=true" >> "$GITHUB_OUTPUT"
+            echo "test_dirs=." >> "$GITHUB_OUTPUT"
+          else
+            echo "run_all=false" >> "$GITHUB_OUTPUT"
+            echo "test_dirs=$DIR" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+        fi
+
+        # Always run everything for push to main and scheduled runs.
+        if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+          echo "run_all=true" >> "$GITHUB_OUTPUT"
+          echo "test_dirs=." >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        BASE=${{ github.event.pull_request.base.sha }}
+        HEAD=${{ github.event.pull_request.head.sha }}
+
+        # Files whose changes should trigger the full test suite.
+        INFRA_PATTERN='^(conftest\.py|pytest\.ini|requirements\.txt|_testlib/|\.github/workflows/test-examples\.yaml)'
+
+        CHANGED_FILES=$(git diff --name-only "$BASE" "$HEAD")
+
+        if echo "$CHANGED_FILES" | grep -qE "$INFRA_PATTERN"; then
+          echo "run_all=true" >> "$GITHUB_OUTPUT"
+          echo "test_dirs=." >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        # Collect unique top-level directories that changed and contain a
+        # test file.
+        DIRS=""
+        for dir in $(echo "$CHANGED_FILES" | cut -d/ -f1 | sort -u); do
+          if compgen -G "${dir}/test_*.py" > /dev/null 2>&1; then
+            DIRS="${DIRS:+$DIRS }${dir}"
+          fi
+        done
+
+        if [[ -z "$DIRS" ]]; then
+          echo "No example directories with tests were changed."
+          echo "run_all=false" >> "$GITHUB_OUTPUT"
+          echo "test_dirs=" >> "$GITHUB_OUTPUT"
+        else
+          echo "Changed example directories with tests: $DIRS"
+          echo "run_all=false" >> "$GITHUB_OUTPUT"
+          echo "test_dirs=$DIRS" >> "$GITHUB_OUTPUT"
+        fi
+
   pytest:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.test_dirs != ''
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -92,4 +164,4 @@ jobs:
         PY
 
     - name: Run tests
-      run: pytest --log-cli-level=INFO
+      run: pytest --log-cli-level=INFO ${{ needs.detect-changes.outputs.test_dirs }}
